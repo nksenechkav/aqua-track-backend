@@ -1,0 +1,21 @@
+# swagger/components/schemas/register.yaml
+
+type: object
+required:
+  - _id
+  - name
+  - email
+
+properties:
+  _id:
+    description: "User's id"
+    type: string
+    example: '65e4decdd286b30065d54af9'
+  name:
+    description: "User's name"
+    type: string
+    example: 'Joe Bob'
+  email:
+    description: "User's email"
+    type: string
+    example: 'example@gmail.com'

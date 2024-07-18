@@ -1,0 +1,12 @@
+# swagger/components/schemas/login.yaml
+
+type: object
+required:
+  - accessToken
+
+properties:
+  accessToken:
+    description: 'access token'
+    type: string
+    example: 'J/rbRcndttkAH/i8FwzkgbhaL2hywdsU4rRTLshX'
+

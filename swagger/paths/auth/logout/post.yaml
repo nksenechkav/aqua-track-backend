@@ -1,0 +1,34 @@
+#/swagger/paths/auth/logout/post.yaml
+
+tags:
+  - auth
+summary: User logout
+operationId: logoutUser
+description: 'Logout a user'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+
+        properties:
+          email:
+            description: "user's email"
+            type: string
+            example: 'example@gmail.com'
+          password:
+            description: "user's password"
+            type: string
+            example: agdgdjhagsdjag
+responses:
+  '204':
+    description: 'Delete user session'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'

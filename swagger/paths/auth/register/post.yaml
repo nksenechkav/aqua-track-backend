@@ -1,0 +1,58 @@
+#/swagger/paths/auth/register/post.yaml
+
+tags:
+  - auth
+summary: User register
+operationId: registerUser
+description: 'Register a new user with the provided details'
+security: []
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+
+        properties:
+          name:
+            description: "user's name"
+            type: string
+            example: 'Joe Bob'
+          email:
+            description: "user's email"
+            type: string
+            example: 'example@gmail.com'
+          password:
+            description: "user's password"
+            type: string
+            example: agdgdjhagsdjag
+
+responses:
+  '201':
+    description: 'Register a user'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully registered a user!
+            data:
+              type: object
+              $ref: ../../../components/schemas/register.yaml
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'
