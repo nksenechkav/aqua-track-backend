@@ -1,12 +1,12 @@
 // src/routers/index.js
 
 import { Router } from 'express';
-import contactsRouter from './contacts.js';
+// import waterRouter from './water.js';
 import authRouter from './auth.js';
 
 const router = Router();
 
-router.use('/contacts', contactsRouter);
+// router.use('/water', waterRouter);
 router.use('/auth', authRouter);
 
 export default router;

@@ -18,7 +18,7 @@
           status: 404,
           message: "NotFoundError",
           data: {
-            message:"Contact not found"
+            message:"Record not found"
           },
         });
         return;
