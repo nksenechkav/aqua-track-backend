@@ -4,7 +4,7 @@ tags:
   - auth
 summary: User register
 operationId: registerUser
-description: 'Register a new user with the provided details'
+description: 'Registeration a new user for Aquatrack'
 security: []
 
 requestBody:
@@ -13,15 +13,10 @@ requestBody:
       schema:
         type: object
         required:
-          - name
           - email
           - password
 
         properties:
-          name:
-            description: "user's name"
-            type: string
-            example: 'Joe Bob'
           email:
             description: "user's email"
             type: string
@@ -33,7 +28,7 @@ requestBody:
 
 responses:
   '201':
-    description: 'Register a user'
+    description: 'Registeration a user'
     content:
       application/json:
         schema:

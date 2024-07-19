@@ -4,7 +4,7 @@ tags:
   - auth
 summary: User login
 operationId: loginUser
-description: 'Authorizе a user'
+description: 'Authorization a user'
 security: []
 
 requestBody:
@@ -28,7 +28,7 @@ requestBody:
 
 responses:
   '200':
-    description: 'Authorize a user'
+    description: 'Authorization a user'
     content:
       application/json:
         schema:
