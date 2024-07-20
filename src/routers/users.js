@@ -50,8 +50,7 @@ router.post(
   validateBody(loginUserSchema),
   ctrlWrapper(loginUserController),
 );
-router.post('/refresh', ctrlWrapper(refreshUserSessionController));
-router.post('/logout', ctrlWrapper(logoutUserController));
+
 router.post(
   '/send-reset-email',
   validateBody(requestResetEmailSchema),
@@ -64,8 +63,10 @@ router.post(
 );
 
 router.use(authenticate);
-router.get('/:userId', ctrlWrapper(getUserByIdController));
 
+router.post('/refresh', ctrlWrapper(refreshUserSessionController));
+router.post('/logout', ctrlWrapper(logoutUserController));
+router.get('/:userId', ctrlWrapper(getUserByIdController));
 router.patch(
   '/:userId',
   validateBody(updateUserSchema),
