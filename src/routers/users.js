@@ -20,6 +20,7 @@ import {
   resetPasswordController,
 } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
+import { authenticate } from '../middlewares/authenticate.js';
 //import { isValidId } from '../middlewares/isValidId.js';
 
 import {
@@ -33,7 +34,6 @@ const router = Router();
 
 router.get('/get-oauth-url', ctrlWrapper(getGoogleOAuthUrlController));
 //router.use('/:userId', isValidId('userId'));
-router.get('/:userId', ctrlWrapper(getUserByIdController));
 
 router.post(
   '/confirm-oauth',
@@ -62,6 +62,9 @@ router.post(
   validateBody(resetPasswordSchema),
   ctrlWrapper(resetPasswordController),
 );
+
+router.use(authenticate);
+router.get('/:userId', ctrlWrapper(getUserByIdController));
 
 router.patch(
   '/:userId',
