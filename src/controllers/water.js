@@ -90,7 +90,7 @@
 //     });
 //  };
 
- export const createContactController = async (req, res) => {
+ export const createWaterController = async (req, res) => {
   const userId  = req.user._id;
 
   const water = await createWater({
@@ -104,7 +104,7 @@
   });
 };
 
-export const patchContactController = async (req, res, next) => {
+export const patchWaterController = async (req, res, next) => {
   const { id } = req.params;
   const userId  = req.user._id;
 
