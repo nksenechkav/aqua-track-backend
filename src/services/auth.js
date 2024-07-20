@@ -4,7 +4,11 @@ import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
 
 import { UsersCollection } from '../db/models/user.js';
-import { FIFTEEN_MINUTES, TEMPLATES_DIR, THIRTY_DAYS } from '../constants/index.js';
+import {
+  FIFTEEN_MINUTES,
+  TEMPLATES_DIR,
+  THIRTY_DAYS,
+} from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 import createHttpError from 'http-errors';
 
@@ -18,7 +22,10 @@ import handlebars from 'handlebars';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 
-import { getFullNameFromGoogleTokenPayload, validateCode } from '../utils/googleOAuth2.js';
+import {
+  getFullNameFromGoogleTokenPayload,
+  validateCode,
+} from '../utils/googleOAuth2.js';
 
 const createSession = (userId) => {
   const accessToken = randomBytes(30).toString('base64');
@@ -61,6 +68,32 @@ export const loginUser = async (payload) => {
   const session = createSession(user._id);
 
   return await SessionsCollection.create(session);
+};
+
+export const updateUser = async (userId, payload, options = {}) => {
+  payload.photo = options.photo;
+  try {
+    const rawResult = await UsersCollection.findOneAndUpdate(
+      { _id: userId },
+      payload,
+      {
+        new: true,
+        includeResultMetadata: true,
+        ...options,
+      },
+    );
+
+    if (!rawResult || !rawResult.value) {
+      return null;
+    }
+    return {
+      contact: rawResult.value,
+      isNew: Boolean(rawResult?.lastErrorObject?.upserted),
+    };
+  } catch (error) {
+    console.error('Error during update user:', error);
+    throw error;
+  }
 };
 
 export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
@@ -130,7 +163,11 @@ export const requestResetToken = async (email) => {
       html,
     });
   } catch (err) {
-    if (err instanceof Error) throw createHttpError(500, 'Failed to send the email, please try again later.');
+    if (err instanceof Error)
+      throw createHttpError(
+        500,
+        'Failed to send the email, please try again later.',
+      );
     throw err;
   }
 };
@@ -141,7 +178,8 @@ export const resetPassword = async (payload) => {
   try {
     entries = jwt.verify(payload.token, env('JWT_SECRET'));
   } catch (err) {
-    if (err instanceof Error) throw createHttpError(401, 'Token is expired or invalid.');
+    if (err instanceof Error)
+      throw createHttpError(401, 'Token is expired or invalid.');
     throw err;
   }
 
