@@ -4,27 +4,10 @@ tags:
   - auth
 summary: User logout
 operationId: logoutUser
-description: 'Logout a user'
+description: 'User logout'
 security:
   - bearerAuth: []
-requestBody:
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - email
-          - password
 
-        properties:
-          email:
-            description: "user's email"
-            type: string
-            example: 'example@gmail.com'
-          password:
-            description: "user's password"
-            type: string
-            example: agdgdjhagsdjag
 responses:
   '204':
     description: 'Delete user session'

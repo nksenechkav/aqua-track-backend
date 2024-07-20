@@ -1,25 +1,14 @@
 // src/utils/parseFilterParams.js
 
-const parseContactType = (contactType) => {
-    const isString = typeof contactType === 'string';
-    if (!isString) return;
-    const isContactType = (contactType) => ['work', 'home', 'personal'].includes(contactType);
-
-    if (isContactType(contactType)) return contactType;
-  };
-
-  const parseisFavourite = (isFavourite) => {
-    if (!(typeof isFavourite === 'boolean')) return isFavourite;
+  const parseTime = (time) => {
+    if (!(typeof time === 'string')) return time;
   };
 
   export const parseFilterParams = (query) => {
-    const { contactType, isFavourite } = query;
+    const { time } = query;
 
-    const parsedContactType = parseContactType(contactType);
-    const parsedisFavourite = parseisFavourite(isFavourite);
-
+    const parsedTime = parseTime(time);
     return {
-      contactType: parsedContactType,
-      isFavourite: parsedisFavourite,
+      time: parsedTime,
     };
   };

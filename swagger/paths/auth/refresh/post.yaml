@@ -4,27 +4,9 @@ tags:
   - auth
 summary: User refresh
 operationId: refreshUsersSession
-description: 'refresh a user'
+description: 'User refresh'
 security:
   - bearerAuth: []
-requestBody:
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - email
-          - password
-
-        properties:
-          email:
-            description: "user's email"
-            type: string
-            example: 'example@gmail.com'
-          password:
-            description: "user's password"
-            type: string
-            example: agdgdjhagsdjag
 
 responses:
   '200':

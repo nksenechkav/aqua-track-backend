@@ -1,22 +1,58 @@
- // src/controllers/contacts.js
+ // src/controllers/water.js
 
-//  import { createContact, deleteContact, getAllContacts, getContactById, updateContact } from '../services/contacts.js';
-//  import { parsePaginationParams } from '../utils/parsePaginationParams.js';
-//  import { parseSortParams } from '../utils/parseSortParams.js';
-//  import { parseFilterParams } from '../utils/parseFilterParams.js';
-//  import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
-//  import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
-// import { env } from '../utils/env.js';
+ import { createWater, deleteWater, getUserWaterConsumptionByDay, getUserWaterConsumptionByMonth, updateWater } from '../services/water.js';
+ import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+ import { parseSortParams } from '../utils/parseSortParams.js';
+ import { parseFilterParams } from '../utils/parseFilterParams.js';
 
-//  import createHttpError from 'http-errors';
+ import createHttpError from 'http-errors';
 
-//  export const getContactsController = async (req, res, next) => {
+ export const getUserWaterConsumptionByDayController = async (req, res, next) => {
+    const userId = req.user._id;
+    const { date, page, perPage, sortBy, sortOrder } = req.query;
+
+    const paginationParams = parsePaginationParams({ page, perPage });
+    const sortParams = parseSortParams({ sortBy, sortOrder });
+    const filterParams = parseFilterParams(req.query);
+
+    try {
+      const data = await getUserWaterConsumptionByDay(userId, date, paginationParams, sortParams, filterParams);
+      res.status(200).json({
+        status: 200,
+        message: `Successfully fetched water consumption for the day ${date}`,
+        data,
+      });
+    } catch (error) {
+      next(createHttpError(400, error.message));
+    }
+  };
+
+  export const getUserWaterConsumptionByMonthController = async (req, res, next) => {
+    const userId = req.user._id;
+    const { month, page, perPage, sortBy, sortOrder } = req.query;
+
+    const paginationParams = parsePaginationParams({ page, perPage });
+    const sortParams = parseSortParams({ sortBy, sortOrder });
+    const filterParams = parseFilterParams(req.query);
+
+    try {
+      const data = await getUserWaterConsumptionByMonth(userId, month, paginationParams, sortParams, filterParams);
+      res.status(200).json({
+        status: 200,
+        message: `Successfully fetched water consumption for the month ${month}`,
+        data,
+      });
+    } catch (error) {
+      next(createHttpError(400, error.message));
+    }
+  };
+//  export const getWaterController = async (req, res, next) => {
 //     const { page, perPage } = parsePaginationParams(req.query);
 //     const { sortBy, sortOrder } = parseSortParams(req.query);
 //     const filter = parseFilterParams(req.query);
 //     const userId = req.user._id;
 
-//     const contacts = await getAllContacts({
+//     const water = await getAllWater({
 //       page,
 //       perPage,
 //       sortBy,
@@ -25,102 +61,78 @@
 //       userId,
 //   });
 
-//   if (contacts.data.length === 0) {
-//     next(createHttpError(404, 'Contacts not found'));
+//   if (water.data.length === 0) {
+//     next(createHttpError(404, 'Entries of water not found'));
 //     return;
 //   }
 
 //     res.status(200).json({
 //       status: 200,
-//       message: 'Successfully found contacts!',
-//       data: contacts,
+//       message: 'Successfully found entries of water!',
+//       data: water,
 //     });
 //  };
 
-//  export const getContactByIdController = async (req, res, next) => {
-//     const { contactId } = req.params;
+//  export const getWaterByIdController = async (req, res, next) => {
+//     const { id } = req.params;
 //     const userId = req.user._id;
 
-//     const contact = await getContactById(contactId, userId);
-//     if (!contact) {
-//       next(createHttpError(404, `Contact not found`));
+//     const water = await getWaterById(id, userId);
+//     if (!water) {
+//       next(createHttpError(404, `Entry of Water not found`));
 //       return;
 //     }
 
 //     res.status(200).json({
 //       status: 200,
-//       message: `Successfully found contact with id ${contactId}!`,
-//       data: contact,
+//       message: `Successfully found entry of Water with id ${id}!`,
+//       data: water,
 //     });
 //  };
 
-//  export const createContactController = async (req, res) => {
-//   const userId  = req.user._id;
-//   const photo = req.file;
+ export const createWaterController = async (req, res) => {
+  const userId  = req.user._id;
 
-//   let photoUrl;
+  const water = await createWater({
+    ...req.body,
+  }, userId);
 
-//   if (photo) {
-//     if (env('ENABLE_CLOUDINARY') === 'true') {
-//       photoUrl = await saveFileToCloudinary(photo);
-//     } else {
-//       photoUrl = await saveFileToUploadDir(photo);
-//     }
-//   }
+  res.status(201).json({
+    status: 201,
+    message: `Successfully created an entry of Water!`,
+    data: water,
+  });
+};
 
-//   const contact = await createContact({
-//     ...req.body,
-//     photo: photoUrl,
-//   }, userId);
+export const patchWaterController = async (req, res, next) => {
+  const { id } = req.params;
+  const userId  = req.user._id;
 
-//   res.status(201).json({
-//     status: 201,
-//     message: `Successfully created a contact!`,
-//     data: contact,
-//   });
-// };
+  const result = await updateWater(id, userId, {
+    ...req.body
+  });
 
-// export const patchContactController = async (req, res, next) => {
-//   const { contactId } = req.params;
-//   const userId  = req.user._id;
-//   const photo = req.file;
+  if (!result) {
+    next(createHttpError(404, 'Entry of Water not found'));
+    return;
+  }
 
-//   let photoUrl;
+  res.status(200).json({
+    status: 200,
+    message: `Successfully patched an entry of entry of Water!`,
+    data: result.water,
+  });
+};
 
-//   if (photo) {
-//     if (env('ENABLE_CLOUDINARY') === 'true') {
-//       photoUrl = await saveFileToCloudinary(photo);
-//     } else {
-//       photoUrl = await saveFileToUploadDir(photo);
-//     }
-//   }
+export const deleteWaterController = async (req, res, next) => {
+  const { id } = req.params;
+  const  userId  = req.user._id;
+  const water = await deleteWater(id, userId);
 
-//   const result = await updateContact(contactId, userId, {
-//     ...req.body,
-//     photo: photoUrl,
-//   });
+  if (!water) {
+    next(createHttpError(404, 'Entry of Water not found'));
+    return;
+  }
 
-//   if (!result) {
-//     next(createHttpError(404, 'Contact not found'));
-//     return;
-//   }
-
-//   res.status(200).json({
-//     status: 200,
-//     message: `Successfully patched a contact!`,
-//     data: result.contact,
-//   });
-// };
-
-// export const deleteContactController = async (req, res, next) => {
-//   const { contactId } = req.params;
-//   const  userId  = req.user._id;
-//   const contact = await deleteContact(contactId, userId);
-
-//   if (!contact) {
-//     next(createHttpError(404, 'Contact not found'));
-//     return;
-//   }
-
-//   res.status(204).send();
-// };
+  res.status(204).send();
+};
