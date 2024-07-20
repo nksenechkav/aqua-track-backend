@@ -70,6 +70,11 @@ export const loginUser = async (payload) => {
   return await SessionsCollection.create(session);
 };
 
+export const getUserById = async (userId) => {
+  const user = await UsersCollection.findOne({ _id: userId });
+  return user;
+};
+
 export const updateUser = async (userId, payload, options = {}) => {
   payload.photo = options.photo;
   try {

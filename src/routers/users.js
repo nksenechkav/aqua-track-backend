@@ -20,13 +20,20 @@ import {
   resetPasswordController,
 } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { patchUserController } from '../controllers/auth.js';
+//import { isValidId } from '../middlewares/isValidId.js';
+import {
+  patchUserController,
+  getUserByIdController,
+} from '../controllers/auth.js';
 import { updateUserSchema } from '../validation/updateUserSchema.js';
 import { upload } from '../middlewares/multer.js';
 
 const router = Router();
 
 router.get('/get-oauth-url', ctrlWrapper(getGoogleOAuthUrlController));
+//router.use('/:userId', isValidId('userId'));
+router.get('/:userId', ctrlWrapper(getUserByIdController));
+
 router.post(
   '/confirm-oauth',
   validateBody(loginWithGoogleOAuthSchema),

@@ -14,7 +14,7 @@ import { loginOrSignupWithGoogle } from '../services/auth.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { env } from '../utils/env.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
-import { updateUser } from '../services/auth.js';
+import { updateUser, getUserById } from '../services/auth.js';
 import createHttpError from 'http-errors';
 
 const setupSession = (res, session) => {
@@ -77,6 +77,21 @@ export const patchUserController = async (req, res, next) => {
     status: 200,
     message: `Successfully patched a contact!`,
     data: result.contact,
+  });
+};
+
+export const getUserByIdController = async (req, res, next) => {
+  const { userId } = req.params;
+  const user = await getUserById(userId);
+  if (!user) {
+    next(createHttpError(404, 'Contact not found'));
+    return;
+  }
+
+  res.status(200).json({
+    status: 200,
+    message: `Successfully found contact with id ${userId}!`,
+    data: user,
   });
 };
 
