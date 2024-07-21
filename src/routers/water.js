@@ -19,14 +19,11 @@ import { authenticate } from '../middlewares/authenticate.js';
 const router = Router();
 
 router.use(authenticate);
-router.use('/:id', isValidId);
 
-router.get('/daily', authenticate, ctrlWrapper(getUserWaterConsumptionByDayController));
-router.get('/monthly', authenticate, ctrlWrapper(getUserWaterConsumptionByMonthController));
-// router.get('/', ctrlWrapper (getWaterController));
-// router.get('/:id', ctrlWrapper(getWaterByIdController));
+router.get('/daily', ctrlWrapper(getUserWaterConsumptionByDayController));
+router.get('/monthly', ctrlWrapper(getUserWaterConsumptionByMonthController));
 router.post('', validateBody(createWaterSchema), ctrlWrapper(createWaterController));
-router.patch('/:id', validateBody(updateWaterSchema), ctrlWrapper(patchWaterController));
-router.delete('/:id', ctrlWrapper(deleteWaterController));
+router.patch('/:id', isValidId, validateBody(updateWaterSchema), ctrlWrapper(patchWaterController));
+router.delete('/:id', isValidId, ctrlWrapper(deleteWaterController));
 
 export default router;

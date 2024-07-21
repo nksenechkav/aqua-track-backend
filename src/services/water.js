@@ -17,9 +17,16 @@
     const limit = perPage;
     const skip = (page - 1) * perPage;
 
+    const startDate = new Date(date);
+    const endDate = new Date(date);
+    endDate.setUTCDate(endDate.getUTCDate() + 1); // Наступний день для визначення кінця діапазону
+
     const waterQuery = WaterCollection.find({
-      userId,
-      time: { $regex: `^${date}` } // assuming `time` is stored in 'YYYY-MM-DD' format
+        userId,
+        time: {
+            $gte: startDate.toISOString(),
+            $lt: endDate.toISOString()
+        }
     });
 
     if (filter.time) {
@@ -55,9 +62,16 @@
     const limit = perPage;
     const skip = (page - 1) * perPage;
 
+    const startDate = new Date(`${month}-01T00:00:00Z`);
+    const endDate = new Date(startDate);
+    endDate.setUTCMonth(startDate.getUTCMonth() + 1);
+
     const waterQuery = WaterCollection.find({
-      userId,
-      time: { $regex: `^${month}` } // assuming `time` is stored in 'YYYY-MM' format
+        userId,
+        time: {
+            $gte: startDate.toISOString(),
+            $lt: endDate.toISOString()
+        }
     });
 
     if (filter.time) {
@@ -80,55 +94,6 @@
       ...paginationData,
     };
   };
-
-//  export const getAllWater = async ({
-//   page = 1,
-//   perPage = 10,
-//   sortOrder = SORT_ORDER.ASC,
-//   sortBy = '_id',
-//   filter = {},
-//   userId,
-// }) => {
-//    const limit = perPage;
-//    const skip = (page - 1) * perPage;
-
-//    const waterQuery = WaterCollection.find({userId});
-
-//    if (filter.time) {
-//     waterQuery.where('time').equals(filter.time);
-//   }
-
-//   //  const waterCount = await WaterCollection.find()
-//   //  .merge(contactsQuery)
-//   //  .countDocuments();
-
-//   //  const water = await waterQuery
-//   //  .skip(skip)
-//   //  .limit(limit)
-//   //  .sort({ [sortBy]: sortOrder })
-//   //  .exec();
-
-//    const [waterCount, water] = await Promise.all([
-//     WaterCollection.find().merge(waterQuery).countDocuments(),
-//     waterQuery
-//       .skip(skip)
-//       .limit(limit)
-//       .sort({ [sortBy]: sortOrder })
-//       .exec(),
-//   ]);
-
-//     const paginationData = calculatePaginationData(waterCount, perPage, page);
-
-//     return {
-//       data: water,
-//       ...paginationData,
-//     };
-//   };
-
-//  export const getWaterById = async (id, userId) => {
-//    const water = await WaterCollection.findOne({ _id: id, userId });
-//    return water;
-//  };
 
  export const createWater = async (payload, userId) => {
   const water = await WaterCollection.create({...payload, userId});

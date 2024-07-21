@@ -9,86 +9,69 @@
 
  export const getUserWaterConsumptionByDayController = async (req, res, next) => {
     const userId = req.user._id;
-    const { date, page, perPage, sortBy, sortOrder } = req.query;
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { sortBy, sortOrder } = parseSortParams(req.query);
+    const filter = parseFilterParams(req.query);
+    const { date } = req.query;
 
-    const paginationParams = parsePaginationParams({ page, perPage });
-    const sortParams = parseSortParams({ sortBy, sortOrder });
-    const filterParams = parseFilterParams(req.query);
+    if (!date) {
+      return next(createHttpError(400, 'Date query parameter is required'));
+  }
 
-    try {
-      const data = await getUserWaterConsumptionByDay(userId, date, paginationParams, sortParams, filterParams);
+    const water = await getUserWaterConsumptionByDay({
+      userId,
+      date,
+      page,
+      perPage,
+      sortBy,
+      sortOrder,
+      filter
+    });
+
+    if (water.data.length === 0) {
+          next(createHttpError(404, 'Entries of water not found'));
+          return;
+        }
+
       res.status(200).json({
         status: 200,
         message: `Successfully fetched water consumption for the day ${date}`,
-        data,
+        water,
       });
-    } catch (error) {
-      next(createHttpError(400, error.message));
-    }
   };
 
   export const getUserWaterConsumptionByMonthController = async (req, res, next) => {
     const userId = req.user._id;
-    const { month, page, perPage, sortBy, sortOrder } = req.query;
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { sortBy, sortOrder } = parseSortParams(req.query);
+    const filter = parseFilterParams(req.query);
+    const { month } = req.query;
 
-    const paginationParams = parsePaginationParams({ page, perPage });
-    const sortParams = parseSortParams({ sortBy, sortOrder });
-    const filterParams = parseFilterParams(req.query);
+    if (!month) {
+      return next(createHttpError(400, 'Month query parameter is required'));
+  }
 
-    try {
-      const data = await getUserWaterConsumptionByMonth(userId, month, paginationParams, sortParams, filterParams);
+    const water = await getUserWaterConsumptionByMonth({
+      userId,
+      month,
+      page,
+      perPage,
+      sortBy,
+      sortOrder,
+      filter
+    });
+
+    if (water.data.length === 0) {
+          next(createHttpError(404, 'Entries of water not found'));
+          return;
+        }
+
       res.status(200).json({
         status: 200,
         message: `Successfully fetched water consumption for the month ${month}`,
-        data,
+        water,
       });
-    } catch (error) {
-      next(createHttpError(400, error.message));
-    }
   };
-//  export const getWaterController = async (req, res, next) => {
-//     const { page, perPage } = parsePaginationParams(req.query);
-//     const { sortBy, sortOrder } = parseSortParams(req.query);
-//     const filter = parseFilterParams(req.query);
-//     const userId = req.user._id;
-
-//     const water = await getAllWater({
-//       page,
-//       perPage,
-//       sortBy,
-//       sortOrder,
-//       filter,
-//       userId,
-//   });
-
-//   if (water.data.length === 0) {
-//     next(createHttpError(404, 'Entries of water not found'));
-//     return;
-//   }
-
-//     res.status(200).json({
-//       status: 200,
-//       message: 'Successfully found entries of water!',
-//       data: water,
-//     });
-//  };
-
-//  export const getWaterByIdController = async (req, res, next) => {
-//     const { id } = req.params;
-//     const userId = req.user._id;
-
-//     const water = await getWaterById(id, userId);
-//     if (!water) {
-//       next(createHttpError(404, `Entry of Water not found`));
-//       return;
-//     }
-
-//     res.status(200).json({
-//       status: 200,
-//       message: `Successfully found entry of Water with id ${id}!`,
-//       data: water,
-//     });
-//  };
 
  export const createWaterController = async (req, res) => {
   const userId  = req.user._id;
