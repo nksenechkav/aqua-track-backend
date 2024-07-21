@@ -20,13 +20,21 @@ import {
   resetPasswordController,
 } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { patchUserController } from '../controllers/auth.js';
+import { authenticate } from '../middlewares/authenticate.js';
+//import { isValidId } from '../middlewares/isValidId.js';
+
+import {
+  patchUserController,
+  getUserByIdController,
+} from '../controllers/auth.js';
 import { updateUserSchema } from '../validation/updateUserSchema.js';
 import { upload } from '../middlewares/multer.js';
 
 const router = Router();
 
 router.get('/get-oauth-url', ctrlWrapper(getGoogleOAuthUrlController));
+//router.use('/:userId', isValidId('userId'));
+
 router.post(
   '/confirm-oauth',
   validateBody(loginWithGoogleOAuthSchema),
@@ -42,8 +50,7 @@ router.post(
   validateBody(loginUserSchema),
   ctrlWrapper(loginUserController),
 );
-router.post('/refresh', ctrlWrapper(refreshUserSessionController));
-router.post('/logout', ctrlWrapper(logoutUserController));
+
 router.post(
   '/send-reset-email',
   validateBody(requestResetEmailSchema),
@@ -55,6 +62,11 @@ router.post(
   ctrlWrapper(resetPasswordController),
 );
 
+router.use(authenticate);
+
+router.post('/refresh', ctrlWrapper(refreshUserSessionController));
+router.post('/logout', ctrlWrapper(logoutUserController));
+router.get('/:userId', ctrlWrapper(getUserByIdController));
 router.patch(
   '/:userId',
   validateBody(updateUserSchema),
