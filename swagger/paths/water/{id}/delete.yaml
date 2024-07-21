@@ -18,7 +18,7 @@ responses:
     description: 'Delete waterInfo by id'
 
   '404':
-    $ref: '../../../components/responses/water/404.yaml'
+    $ref: '../../../components/responses/water/404-2.yaml'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':

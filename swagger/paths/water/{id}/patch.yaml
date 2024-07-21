@@ -55,7 +55,7 @@ responses:
               type: object
               $ref: '../../../components/schemas/water.yaml'
   '404':
-    $ref: '../../../components/responses/water/404.yaml'
+    $ref: '../../../components/responses/water/404-2.yaml'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':

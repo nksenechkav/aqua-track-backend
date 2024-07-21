@@ -1,6 +1,6 @@
 #/swagger/paths/water/post.yaml
 tags:
-  - water
+  - Water
 summary: Create waterInfo
 operationId: createwaterInfo
 description: 'Create a water with payload'

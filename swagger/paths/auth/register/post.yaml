@@ -1,7 +1,7 @@
 #/swagger/paths/auth/register/post.yaml
 
 tags:
-  - auth
+  - Auth
 summary: User register
 operationId: registerUser
 description: 'Registeration a new user for Aquatrack'

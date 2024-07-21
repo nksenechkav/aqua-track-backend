@@ -1,7 +1,7 @@
 #/swagger/paths/auth/login/post.yaml
 
 tags:
-  - auth
+  - Auth
 summary: User login
 operationId: loginUser
 description: 'Authorization a user'
