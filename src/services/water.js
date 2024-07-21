@@ -58,7 +58,7 @@
     sortOrder = SORT_ORDER.ASC,
     sortBy = '_id',
     filter = {},
-  }) => {
+}) => {
     const limit = perPage;
     const skip = (page - 1) * perPage;
 
@@ -76,24 +76,25 @@
 
     if (filter.time) {
         waterQuery.where('time').equals(filter.time);
-      }
+    }
 
     const [waterCount, water] = await Promise.all([
-      WaterCollection.find().merge(waterQuery).countDocuments(),
-      waterQuery
-        .skip(skip)
-        .limit(limit)
-        .sort({ [sortBy]: sortOrder })
-        .exec(),
+        WaterCollection.find().merge(waterQuery).countDocuments(),
+        waterQuery
+            .skip(skip)
+            .limit(limit)
+            .sort({ [sortBy]: sortOrder })
+            .exec(),
     ]);
 
     const paginationData = calculatePaginationData(waterCount, perPage, page);
 
     return {
-      data: water,
-      ...paginationData,
+        data: water,
+        paginationData,
     };
-  };
+};
+
 
  export const createWater = async (payload, userId) => {
   const water = await WaterCollection.create({...payload, userId});
