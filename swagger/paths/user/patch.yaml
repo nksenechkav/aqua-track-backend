@@ -1,0 +1,71 @@
+tags:
+  - User
+summary: Update user by token
+operationId: updateUser
+description: 'Update user by token'
+security:
+  - bearerAuth: []
+
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            description: "User's name"
+            type: string
+            example: 'John Doe'
+          email:
+            description: "User's email"
+            type: string
+            example: 'example@gmail.com'
+          gender:
+            description: "user's gender"
+            type: string
+            enum: ['man', 'woman']
+          weight:
+            description: 'Your weight in kilograms:'
+            type: number
+            example: 55
+          timeActiveSport:
+            description: 'The time of active participation in sports'
+            type: number
+            example: 45
+
+          dailyNormWater:
+            description: 'how much water you will drink'
+            type: number
+            example: 1.8
+
+          photo:
+            description: "User's photo"
+            type: string
+            format: binary
+responses:
+  '200':
+    description: 'Update user data'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found user
+            data:
+              type: object
+              $ref: '../../components/schemas/user.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

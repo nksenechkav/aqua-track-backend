@@ -1,7 +1,7 @@
 #/swagger/paths/auth/register/post.yaml
 
 tags:
-  - auth
+  - Auth
 summary: User register
 operationId: registerUser
 description: 'Registeration a new user for Aquatrack'
@@ -46,7 +46,7 @@ responses:
               example: Successfully registered a user!
             data:
               type: object
-              $ref: ../../../components/schemas/register.yaml
+              $ref: ../../../components/schemas/user.yaml
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':

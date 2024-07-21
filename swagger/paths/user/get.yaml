@@ -1,16 +1,14 @@
-#/swagger/paths/auth/refresh/post.yaml
-
 tags:
-  - Auth
-summary: User refresh
-operationId: refreshUsersSession
-description: 'User refresh'
+  - User
+summary: Get user by token
+operationId: getUserByToken
+description: 'Get user by token'
 security:
   - bearerAuth: []
 
 responses:
   '200':
-    description: 'refreshed a session!'
+    description: 'Get user by token'
     content:
       application/json:
         schema:
@@ -25,11 +23,13 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully refreshed a session!
+              example: Successfully found current user!
             data:
               type: object
-              $ref: ../../../components/schemas/login.yaml
+              $ref: '../../components/schemas/user.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
   '401':
-    $ref: '../../../components/responses/401.yaml'
+    $ref: '../../components/responses/401.yaml'
   '500':
-    $ref: '../../../components/responses/500.yaml'
+    $ref: '../../components/responses/500.yaml'

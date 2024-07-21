@@ -1,7 +1,7 @@
 #/swagger/paths/auth/logout/post.yaml
 
 tags:
-  - auth
+  - Auth
 summary: User logout
 operationId: logoutUser
 description: 'User logout'
