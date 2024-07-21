@@ -1,126 +1,121 @@
- // src/controllers/contacts.js
+ // src/controllers/water.js
 
-//  import { createContact, deleteContact, getAllContacts, getContactById, updateContact } from '../services/contacts.js';
-//  import { parsePaginationParams } from '../utils/parsePaginationParams.js';
-//  import { parseSortParams } from '../utils/parseSortParams.js';
-//  import { parseFilterParams } from '../utils/parseFilterParams.js';
-//  import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
-//  import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
-// import { env } from '../utils/env.js';
+ import { createWater, deleteWater, getUserWaterConsumptionByDay, getUserWaterConsumptionByMonth, updateWater } from '../services/water.js';
+ import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+ import { parseSortParams } from '../utils/parseSortParams.js';
+ import { parseFilterParams } from '../utils/parseFilterParams.js';
 
-//  import createHttpError from 'http-errors';
+ import createHttpError from 'http-errors';
 
-//  export const getContactsController = async (req, res, next) => {
-//     const { page, perPage } = parsePaginationParams(req.query);
-//     const { sortBy, sortOrder } = parseSortParams(req.query);
-//     const filter = parseFilterParams(req.query);
-//     const userId = req.user._id;
+ export const getUserWaterConsumptionByDayController = async (req, res, next) => {
+    const userId = req.user._id;
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { sortBy, sortOrder } = parseSortParams(req.query);
+    const filter = parseFilterParams(req.query);
+    const { date } = req.query;
 
-//     const contacts = await getAllContacts({
-//       page,
-//       perPage,
-//       sortBy,
-//       sortOrder,
-//       filter,
-//       userId,
-//   });
+    if (!date) {
+      return next(createHttpError(400, 'Date query parameter is required'));
+  }
 
-//   if (contacts.data.length === 0) {
-//     next(createHttpError(404, 'Contacts not found'));
-//     return;
-//   }
+    const water = await getUserWaterConsumptionByDay({
+      userId,
+      date,
+      page,
+      perPage,
+      sortBy,
+      sortOrder,
+      filter
+    });
 
-//     res.status(200).json({
-//       status: 200,
-//       message: 'Successfully found contacts!',
-//       data: contacts,
-//     });
-//  };
+    if (water.data.length === 0) {
+          next(createHttpError(404, 'Entries of water not found'));
+          return;
+        }
 
-//  export const getContactByIdController = async (req, res, next) => {
-//     const { contactId } = req.params;
-//     const userId = req.user._id;
+      res.status(200).json({
+        status: 200,
+        message: `Successfully fetched water consumption for the day ${date}`,
+        water,
+      });
+  };
 
-//     const contact = await getContactById(contactId, userId);
-//     if (!contact) {
-//       next(createHttpError(404, `Contact not found`));
-//       return;
-//     }
+  export const getUserWaterConsumptionByMonthController = async (req, res, next) => {
+    const userId = req.user._id;
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { sortBy, sortOrder } = parseSortParams(req.query);
+    const filter = parseFilterParams(req.query);
+    const { month } = req.query;
 
-//     res.status(200).json({
-//       status: 200,
-//       message: `Successfully found contact with id ${contactId}!`,
-//       data: contact,
-//     });
-//  };
+    if (!month) {
+      return next(createHttpError(400, 'Month query parameter is required'));
+  }
 
-//  export const createContactController = async (req, res) => {
-//   const userId  = req.user._id;
-//   const photo = req.file;
+    const water = await getUserWaterConsumptionByMonth({
+      userId,
+      month,
+      page,
+      perPage,
+      sortBy,
+      sortOrder,
+      filter
+    });
 
-//   let photoUrl;
+    if (water.data.length === 0) {
+          next(createHttpError(404, 'Entries of water not found'));
+          return;
+        }
 
-//   if (photo) {
-//     if (env('ENABLE_CLOUDINARY') === 'true') {
-//       photoUrl = await saveFileToCloudinary(photo);
-//     } else {
-//       photoUrl = await saveFileToUploadDir(photo);
-//     }
-//   }
+      res.status(200).json({
+        status: 200,
+        message: `Successfully fetched water consumption for the month ${month}`,
+        water,
+      });
+  };
 
-//   const contact = await createContact({
-//     ...req.body,
-//     photo: photoUrl,
-//   }, userId);
+ export const createWaterController = async (req, res) => {
+  const userId  = req.user._id;
 
-//   res.status(201).json({
-//     status: 201,
-//     message: `Successfully created a contact!`,
-//     data: contact,
-//   });
-// };
+  const water = await createWater({
+    ...req.body,
+  }, userId);
 
-// export const patchContactController = async (req, res, next) => {
-//   const { contactId } = req.params;
-//   const userId  = req.user._id;
-//   const photo = req.file;
+  res.status(201).json({
+    status: 201,
+    message: `Successfully created an entry of Water!`,
+    data: water,
+  });
+};
 
-//   let photoUrl;
+export const patchWaterController = async (req, res, next) => {
+  const { id } = req.params;
+  const userId  = req.user._id;
 
-//   if (photo) {
-//     if (env('ENABLE_CLOUDINARY') === 'true') {
-//       photoUrl = await saveFileToCloudinary(photo);
-//     } else {
-//       photoUrl = await saveFileToUploadDir(photo);
-//     }
-//   }
+  const result = await updateWater(id, userId, {
+    ...req.body
+  });
 
-//   const result = await updateContact(contactId, userId, {
-//     ...req.body,
-//     photo: photoUrl,
-//   });
+  if (!result) {
+    next(createHttpError(404, 'Entry of Water not found'));
+    return;
+  }
 
-//   if (!result) {
-//     next(createHttpError(404, 'Contact not found'));
-//     return;
-//   }
+  res.status(200).json({
+    status: 200,
+    message: `Successfully patched an entry of entry of Water!`,
+    data: result.water,
+  });
+};
 
-//   res.status(200).json({
-//     status: 200,
-//     message: `Successfully patched a contact!`,
-//     data: result.contact,
-//   });
-// };
+export const deleteWaterController = async (req, res, next) => {
+  const { id } = req.params;
+  const  userId  = req.user._id;
+  const water = await deleteWater(id, userId);
 
-// export const deleteContactController = async (req, res, next) => {
-//   const { contactId } = req.params;
-//   const  userId  = req.user._id;
-//   const contact = await deleteContact(contactId, userId);
+  if (!water) {
+    next(createHttpError(404, 'Entry of Water not found'));
+    return;
+  }
 
-//   if (!contact) {
-//     next(createHttpError(404, 'Contact not found'));
-//     return;
-//   }
-
-//   res.status(204).send();
-// };
+  res.status(204).send();
+};

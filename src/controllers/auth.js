@@ -1,9 +1,21 @@
 // src/controllers/auth.js
 
-import { loginUser, logoutUser, refreshUsersSession, registerUser, requestResetToken, resetPassword} from '../services/auth.js';
+import {
+  loginUser,
+  logoutUser,
+  refreshUsersSession,
+  registerUser,
+  requestResetToken,
+  resetPassword,
+} from '../services/auth.js';
 import { THIRTY_DAYS } from '../constants/index.js';
 import { generateAuthUrl } from '../utils/googleOAuth2.js';
 import { loginOrSignupWithGoogle } from '../services/auth.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { env } from '../utils/env.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { updateUser, getUserById } from '../services/auth.js';
+import createHttpError from 'http-errors';
 
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
@@ -37,6 +49,49 @@ export const loginUserController = async (req, res) => {
     data: {
       accessToken: session.accessToken,
     },
+  });
+};
+export const patchUserController = async (req, res, next) => {
+  const { userId } = req.params;
+  const photo = req.file;
+  let photoUrl;
+
+  if (photo) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
+  const result = await updateUser(userId, req.body, {
+    photo: photoUrl,
+  });
+
+  if (!result) {
+    next(createHttpError(404, 'Contact not found'));
+    return;
+  }
+
+  res.json({
+    status: 200,
+    message: `Successfully patched a contact!`,
+    data: result.contact,
+  });
+};
+
+export const getUserByIdController = async (req, res, next) => {
+  const { userId } = req.params;
+  const user = await getUserById(userId);
+  if (!user) {
+    next(createHttpError(404, 'Contact not found'));
+    return;
+  }
+
+  res.status(200).json({
+    status: 200,
+    message: `Successfully found contact with id ${userId}!`,
+    data: user,
   });
 };
 
