@@ -46,7 +46,7 @@
 
     return {
       data: water,
-      ...paginationData,
+      paginationData,
     };
   };
 
@@ -94,7 +94,6 @@
         paginationData,
     };
 };
-
 
  export const createWater = async (payload, userId) => {
   const water = await WaterCollection.create({...payload, userId});

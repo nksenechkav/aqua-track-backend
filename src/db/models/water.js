@@ -12,10 +12,6 @@ const waterSchema = new Schema(
       type: Number,
       required: true,
     },
-    dailyWaterRequirement: {
-      type: Number,
-      required: true,
-    },
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'users',
