@@ -2,10 +2,10 @@ import Joi from 'joi';
 
 export const updateUserSchema = Joi.object({
   email: Joi.string().email(),
-  name: Joi.string().min(3).max(20).messages(),
+  name: Joi.string().min(2).max(30).messages(),
   weight: Joi.number().min(0).max(300),
   photo: Joi.string(),
   gender: Joi.string().valid('woman', 'man'),
-  activeSportTime: Joi.number().min(0).max(24),
-  dailyWaterRequirement: Joi.number().min(0.5),
+  sportHours: Joi.number().min(0).max(24),
+  waterAmount: Joi.number().min(0).max(16),
 });
