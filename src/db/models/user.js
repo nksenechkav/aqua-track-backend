@@ -12,6 +12,11 @@ const usersSchema = new Schema(
       enum: ['woman', 'man'],
       default: 'woman',
     },
+    dailyWaterRequirement: {
+      type: Number,
+      required: false,
+      default: 1.8,
+    },
     weight: { type: Number, required: false, default: 0 },
     activeSportTime: { type: Number, required: false, default: 0 },
   },

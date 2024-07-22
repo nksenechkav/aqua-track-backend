@@ -7,4 +7,5 @@ export const updateUserSchema = Joi.object({
   photo: Joi.string(),
   gender: Joi.string().valid('woman', 'man'),
   activeSportTime: Joi.number().min(0).max(24),
+  dailyWaterRequirement: Joi.number().min(0.5),
 });
