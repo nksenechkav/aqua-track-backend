@@ -12,13 +12,13 @@ const usersSchema = new Schema(
       enum: ['woman', 'man'],
       default: 'woman',
     },
-    dailyWaterRequirement: {
+    waterAmount: {
       type: Number,
       required: false,
       default: 1.8,
     },
     weight: { type: Number, required: false, default: 0 },
-    activeSportTime: { type: Number, required: false, default: 0 },
+    sportHours: { type: Number, required: false, default: 0 },
   },
   { timestamps: true, versionKey: false },
 );
