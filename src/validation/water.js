@@ -3,7 +3,7 @@
 import Joi from 'joi';
 
 export const createWaterSchema = Joi.object({
-  time: Joi.string().min(15).max(30).required().messages({
+  time: Joi.string().min(3).max(30).required().messages({
     'string.base': 'Time should be a string',
     'string.min': 'Time should have at least {#limit} characters',
     'string.max': 'Time should have at most {#limit} characters',
@@ -22,7 +22,7 @@ export const createWaterSchema = Joi.object({
 });
 
 export const updateWaterSchema = Joi.object({
-  time: Joi.string().min(15).max(30),
+  time: Joi.string().min(3).max(30),
   amount: Joi.number().integer().min(50),
   userId: Joi.string(),
 });

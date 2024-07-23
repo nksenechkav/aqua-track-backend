@@ -18,7 +18,7 @@
           status: 404,
           message: "NotFoundError",
           data: {
-            message:"Record not found"
+            message:"Entry water not found"
           },
         });
         return;
