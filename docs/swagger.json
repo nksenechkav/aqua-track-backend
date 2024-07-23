@@ -32,10 +32,10 @@
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/users/register": {
       "post": {
         "tags": [
-          "Auth"
+          "User"
         ],
         "summary": "User register",
         "operationId": "registerUser",
@@ -105,10 +105,10 @@
         }
       }
     },
-    "/auth/login": {
+    "/users/login": {
       "post": {
         "tags": [
-          "Auth"
+          "User"
         ],
         "summary": "User login",
         "operationId": "loginUser",
@@ -178,10 +178,10 @@
         }
       }
     },
-    "/auth/logout": {
+    "/users/logout": {
       "post": {
         "tags": [
-          "Auth"
+          "User"
         ],
         "summary": "User logout",
         "operationId": "logoutUser",
@@ -204,10 +204,10 @@
         }
       }
     },
-    "/auth/refresh": {
+    "/users/refresh": {
       "post": {
         "tags": [
-          "Auth"
+          "User"
         ],
         "summary": "User refresh",
         "operationId": "refreshUsersSession",
@@ -351,12 +351,12 @@
                     "type": "number",
                     "example": 55
                   },
-                  "timeActiveSport": {
+                  "sportHours": {
                     "description": "The time of active participation in sports",
                     "type": "number",
                     "example": 45
                   },
-                  "dailyNormWater": {
+                  "waterAmount": {
                     "description": "how much water you will drink",
                     "type": "number",
                     "example": 1.8
@@ -735,8 +735,8 @@
             "description": "user's gender",
             "type": "string",
             "enum": [
-              "man",
-              "woman"
+              "woman",
+              "man"
             ]
           },
           "weight": {
@@ -744,12 +744,12 @@
             "type": "number",
             "example": 55
           },
-          "timeActiveSport": {
+          "sportHours": {
             "description": "The time of active participation in sports",
             "type": "number",
             "example": 45
           },
-          "dailyNormWater": {
+          "waterAmount": {
             "description": "how much water you will drink",
             "type": "number",
             "example": 1.8

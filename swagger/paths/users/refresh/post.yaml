@@ -1,7 +1,7 @@
 #/swagger/paths/auth/refresh/post.yaml
 
 tags:
-  - Auth
+  - User
 summary: User refresh
 operationId: refreshUsersSession
 description: 'User refresh'
