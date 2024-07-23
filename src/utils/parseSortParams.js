@@ -13,7 +13,6 @@ const parseSortBy = (sortBy) => {
     '_id',
     'time',
     'amount',
-    'dailyWaterRequirement',
     'createdAt',
     'updatedAt',
   ];
