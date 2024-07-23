@@ -28,12 +28,12 @@ requestBody:
             description: 'Your weight in kilograms:'
             type: number
             example: 55
-          timeActiveSport:
+          sportHours:
             description: 'The time of active participation in sports'
             type: number
             example: 45
 
-          dailyNormWater:
+          waterAmount:
             description: 'how much water you will drink'
             type: number
             example: 1.8

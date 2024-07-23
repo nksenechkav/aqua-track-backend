@@ -18,18 +18,18 @@ servers:
   - url: http://localhost:3000
   - url: https://example.com/api/v1
 paths:
-  /auth/register:
+  /users/register:
     post:
-      $ref: ../swagger/paths/auth/register/post.yaml
-  /auth/login:
+      $ref: ../swagger/paths/users/register/post.yaml
+  /users/login:
     post:
-      $ref: ../swagger/paths/auth/login/post.yaml
-  /auth/logout:
+      $ref: ../swagger/paths/users/login/post.yaml
+  /users/logout:
     post:
-      $ref: ../swagger/paths/auth/logout/post.yaml
-  /auth/refresh:
+      $ref: ../swagger/paths/users/logout/post.yaml
+  /users/refresh:
     post:
-      $ref: ../swagger/paths/auth/refresh/post.yaml
+      $ref: ../swagger/paths/users/refresh/post.yaml
   /user:
     get:
       $ref: ../swagger/paths/user/get.yaml
