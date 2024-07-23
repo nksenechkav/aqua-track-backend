@@ -72,13 +72,13 @@ export const patchUserController = async (req, res, next) => {
   });
 
   if (!result) {
-    next(createHttpError(404, 'Contact not found'));
+    next(createHttpError(404, 'User not found'));
     return;
   }
 
   res.json({
     status: 200,
-    message: `Successfully patched a contact!`,
+    message: `Successfully patched user!`,
     data: result.contact,
   });
 };
@@ -87,13 +87,13 @@ export const getUserByIdController = async (req, res, next) => {
   const { userId } = req.params;
   const user = await getUserById(userId);
   if (!user) {
-    next(createHttpError(404, 'Contact not found'));
+    next(createHttpError(404, 'User not found'));
     return;
   }
 
   res.status(200).json({
     status: 200,
-    message: `Successfully found contact with id ${userId}!`,
+    message: `Successfully found user with id ${userId}!`,
     data: user,
   });
 };
