@@ -14,8 +14,11 @@ import { loginOrSignupWithGoogle } from '../services/auth.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { env } from '../utils/env.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
-import { updateUser, getUserById } from '../services/auth.js';
+import { updateUser, getUserById, getAllUsers } from '../services/auth.js';
 import createHttpError from 'http-errors';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
@@ -162,5 +165,24 @@ export const loginWithGoogleController = async (req, res) => {
     data: {
       accessToken: session.accessToken,
     },
+  });
+};
+
+export const getAllUsersController = async (req, res) => {
+  const { page, perPage } = parsePaginationParams(req.query);
+  const { sortBy, sortOrder } = parseSortParams(req.query);
+  const filter = { ...parseFilterParams(req.query) };
+  const contacts = await getAllUsers({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    filter,
+  });
+
+  res.json({
+    status: 200,
+    message: 'Successfully found users!',
+    data: contacts,
   });
 };

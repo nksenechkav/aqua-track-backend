@@ -14,7 +14,7 @@ import createHttpError from 'http-errors';
 
 import jwt from 'jsonwebtoken';
 
-import { SMTP } from '../constants/index.js';
+import { SMTP, SORT_ORDER } from '../constants/index.js';
 import { env } from '../utils/env.js';
 import { sendEmail } from '../utils/sendMail.js';
 
@@ -26,6 +26,8 @@ import {
   getFullNameFromGoogleTokenPayload,
   validateCode,
 } from '../utils/googleOAuth2.js';
+
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
 const createSession = (userId) => {
   const accessToken = randomBytes(30).toString('base64');
@@ -226,4 +228,32 @@ export const loginOrSignupWithGoogle = async (code) => {
     userId: user._id,
     ...newSession,
   });
+};
+
+export const getAllUsers = async ({
+  page,
+  perPage,
+  sortOrder = SORT_ORDER.ASC,
+  sortBy = '_id',
+}) => {
+  const limit = perPage;
+  const skip = (page - 1) * perPage;
+  const usersQuery = UsersCollection.find();
+
+  const usersCount = await UsersCollection.find()
+    .merge(usersQuery)
+    .countDocuments();
+
+  const users = await usersQuery
+    .skip(skip)
+    .limit(limit)
+    .sort({ [sortBy]: sortOrder })
+    .exec();
+
+  const paginationData = calculatePaginationData(usersCount, perPage, page);
+
+  return {
+    data: users,
+    ...paginationData,
+  };
 };
