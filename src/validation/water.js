@@ -26,3 +26,5 @@ export const updateWaterSchema = Joi.object({
   amount: Joi.number().integer().min(50),
   userId: Joi.string(),
 });
+
+//TODO прописати валідацію стосовно по параметру month: const getUserWaterConsumptionByMonth = month

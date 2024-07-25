@@ -1,0 +1,62 @@
+#/swagger/paths/water/get.yaml
+tags:
+  - Water
+summary: Get water info records by month
+operationId: getInfoWaterMonth
+description: 'Get water info records by month'
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: month
+    schema:
+      type: number
+      example: 4
+  - in: query
+    name: sortOrder
+    schema:
+      type: string
+      enum: ['asc', 'desc']
+      default: 'asc'
+  - in: query
+    name: sortBy
+    schema:
+      type: string
+      default: '_id'
+
+responses:
+  '200':
+    description: Successfully get info water records!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully get info water records!
+            data:
+              type: object
+              required:
+                - data
+                - timePeriod
+
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '../../../components/schemas/water.yaml'
+                timePeriod:
+                  type: string
+                  example: 'day'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'

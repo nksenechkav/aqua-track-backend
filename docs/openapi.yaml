@@ -8,42 +8,49 @@ info:
   description: >
     This is a documentation of Aquatrack app
 tags:
-  - name: User
-    description: Operations about users.
   - name: Auth
     description: Auth operations.
+  - name: Users
+    description: Operations about users.
   - name: Water
     description: Operations about water.
 servers:
   - url: http://localhost:3000
-  - url: https://example.com/api/v1
+  - url: https://aqua-track-backend.onrender.com
 paths:
-  /users/register:
+  /auth/register:
     post:
-      $ref: ../swagger/paths/users/register/post.yaml
-  /users/login:
+      $ref: ../swagger/paths/auth/register/post.yaml
+  /auth/login:
     post:
-      $ref: ../swagger/paths/users/login/post.yaml
-  /users/logout:
+      $ref: ../swagger/paths/auth/login/post.yaml
+  /auth/logout:
     post:
-      $ref: ../swagger/paths/users/logout/post.yaml
-  /users/refresh:
+      $ref: ../swagger/paths/auth/logout/post.yaml
+  /auth/refresh-access-token:
     post:
-      $ref: ../swagger/paths/users/refresh/post.yaml
-  /user:
+      $ref: ../swagger/paths/auth/refresh-access-token/post.yaml
+  /users/{userId}:
     get:
-      $ref: ../swagger/paths/user/get.yaml
+      $ref: ../swagger/paths/users/{userId}/get.yaml
+  /users:
     patch:
-      $ref: ../swagger/paths/user/patch.yaml
+      $ref: ../swagger/paths/users/patch.yaml
+    get:
+      $ref: ../swagger/paths/users/get.yaml
 
   /water/{id}:
     patch:
       $ref: ../swagger/paths/water/{id}/patch.yaml
     delete:
       $ref: ../swagger/paths/water/{id}/delete.yaml
-  /water:
+  /water/daily:
     get:
-      $ref: ../swagger/paths/water/get.yaml
+      $ref: ../swagger/paths/water/daily/get.yaml
+  /water/monthly:
+    get:
+      $ref: ../swagger/paths/water/monthly/get.yaml
+  /water:
     post:
       $ref: ../swagger/paths/water/post.yaml
 

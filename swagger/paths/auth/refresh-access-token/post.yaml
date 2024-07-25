@@ -1,10 +1,10 @@
-#/swagger/paths/auth/refresh/post.yaml
+#/swagger/paths/auth/refresh-access-token/post.yaml
 
 tags:
-  - User
-summary: User refresh
+  - Auth
+summary: Token refresh
 operationId: refreshUsersSession
-description: 'User refresh'
+description: 'Token refresh '
 security:
   - bearerAuth: []
 

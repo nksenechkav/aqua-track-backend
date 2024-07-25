@@ -51,6 +51,7 @@ export const getUserByIdController = async (req, res, next) => {
   });
 };
 
+//TODO прибрати у звязку з тим що ендепоінт повинен повертати загальну кількість користувачів
 export const getAllUsersController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
@@ -66,6 +67,6 @@ export const getAllUsersController = async (req, res) => {
   res.json({
     status: 200,
     message: 'Successfully found users!',
-    data: contacts,
+    data: contacts, //TODO зміни назву на usersAmount
   });
 };
