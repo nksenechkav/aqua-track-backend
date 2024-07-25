@@ -1,5 +1,5 @@
 tags:
-  - User
+  - Users
 summary: Get user by token
 operationId: getUserByToken
 description: 'Get user by token'
