@@ -1,14 +1,13 @@
 tags:
   - Users
-summary: Get user by token
-operationId: getUserByToken
-description: 'Get user by token'
-security:
-  - bearerAuth: []
+summary: Get amount users
+operationId: getAmountUsers
+description: 'Get amount users'
+security: []
 
 responses:
   '200':
-    description: 'Get user by token'
+    description: 'Get amount users'
     content:
       application/json:
         schema:
@@ -16,17 +15,18 @@ responses:
           required:
             - status
             - message
-            - data
+            - usersAmount
           properties:
             status:
               type: integer
               example: 200
             message:
               type: string
-              example: Successfully found current user!
-            data:
-              type: object
-              $ref: '../../components/schemas/user.yaml'
+              example: Successfully get amount users!
+            usersAmount:
+              type: number
+              example: 1200
+
   '404':
     $ref: '../../components/responses/404.yaml'
   '401':

@@ -14,17 +14,17 @@
       "url": "http://localhost:3000"
     },
     {
-      "url": "https://example.com/api/v1"
+      "url": "https://aqua-track-backend.onrender.com"
     }
   ],
   "tags": [
     {
-      "name": "User",
-      "description": "Operations about users."
-    },
-    {
       "name": "Auth",
       "description": "Auth operations."
+    },
+    {
+      "name": "Users",
+      "description": "Operations about users."
     },
     {
       "name": "Water",
@@ -32,10 +32,10 @@
     }
   ],
   "paths": {
-    "/users/register": {
+    "/auth/register": {
       "post": {
         "tags": [
-          "User"
+          "Auth"
         ],
         "summary": "User register",
         "operationId": "registerUser",
@@ -105,10 +105,10 @@
         }
       }
     },
-    "/users/login": {
+    "/auth/login": {
       "post": {
         "tags": [
-          "User"
+          "Auth"
         ],
         "summary": "User login",
         "operationId": "loginUser",
@@ -178,10 +178,10 @@
         }
       }
     },
-    "/users/logout": {
+    "/auth/logout": {
       "post": {
         "tags": [
-          "User"
+          "Auth"
         ],
         "summary": "User logout",
         "operationId": "logoutUser",
@@ -204,14 +204,14 @@
         }
       }
     },
-    "/users/refresh": {
+    "/auth/refresh-access-token": {
       "post": {
         "tags": [
-          "User"
+          "Auth"
         ],
-        "summary": "User refresh",
+        "summary": "Token refresh",
         "operationId": "refreshUsersSession",
-        "description": "User refresh",
+        "description": "Token refresh ",
         "security": [
           {
             "bearerAuth": []
@@ -256,22 +256,33 @@
         }
       }
     },
-    "/user": {
+    "/users/{userId}": {
       "get": {
         "tags": [
-          "User"
+          "Users"
         ],
-        "summary": "Get user by token",
-        "operationId": "getUserByToken",
-        "description": "Get user by token",
+        "summary": "Get user by ID",
+        "operationId": "getUserById",
+        "description": "Get user by ID",
         "security": [
           {
             "bearerAuth": []
           }
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Get user by token",
+            "description": "Get user by ID",
             "content": {
               "application/json": {
                 "schema": {
@@ -309,10 +320,12 @@
             "$ref": "#/components/responses/500"
           }
         }
-      },
+      }
+    },
+    "/users": {
       "patch": {
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Update user by token",
         "operationId": "updateUser",
@@ -411,6 +424,55 @@
             "$ref": "#/components/responses/500"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get amount users",
+        "operationId": "getAmountUsers",
+        "description": "Get amount users",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Get amount users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "usersAmount"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully get amount users!"
+                    },
+                    "usersAmount": {
+                      "type": "number",
+                      "example": 1200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
       }
     },
     "/water/{id}": {
@@ -429,7 +491,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "waterInfoId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string",
@@ -439,7 +501,7 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -519,7 +581,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "waterInfoId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string",
@@ -543,14 +605,14 @@
         }
       }
     },
-    "/water": {
+    "/water/daily": {
       "get": {
         "tags": [
           "Water"
         ],
-        "summary": "Get water info records",
-        "operationId": "getInfoWater",
-        "description": "Get water info records",
+        "summary": "Get water info records by day",
+        "operationId": "getInfoWaterDay",
+        "description": "Get water info records by day",
         "security": [
           {
             "bearerAuth": []
@@ -559,14 +621,30 @@
         "parameters": [
           {
             "in": "query",
-            "name": "timePeriod",
+            "name": "date",
+            "schema": {
+              "type": "string",
+              "example": "2024-07-25"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
             "schema": {
               "type": "string",
               "enum": [
-                "day",
-                "month"
+                "asc",
+                "desc"
               ],
-              "example": "day"
+              "default": "asc"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortBy",
+            "schema": {
+              "type": "string",
+              "default": "_id"
             }
           }
         ],
@@ -622,7 +700,106 @@
             "$ref": "#/components/responses/500"
           }
         }
-      },
+      }
+    },
+    "/water/monthly": {
+      "get": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Get water info records by month",
+        "operationId": "getInfoWaterMonth",
+        "description": "Get water info records by month",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "month",
+            "schema": {
+              "type": "number",
+              "example": 4
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortBy",
+            "schema": {
+              "type": "string",
+              "default": "_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully get info water records!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully get info water records!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "data",
+                        "timePeriod"
+                      ],
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/water"
+                          }
+                        },
+                        "timePeriod": {
+                          "type": "string",
+                          "example": "day"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/water": {
       "post": {
         "tags": [
           "Water"
@@ -637,7 +814,7 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
