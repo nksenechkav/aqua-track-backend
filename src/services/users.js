@@ -48,7 +48,7 @@ export const getAllUsers = async () => {
   // });
 
   return {
-    usersCount: usersCount,
+    usersAmount: usersCount,
     //usersPhotos: photos,
   };
 };
