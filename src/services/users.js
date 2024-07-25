@@ -38,6 +38,8 @@ export const getAllUsers = async () => {
     .merge(usersQuery)
     .countDocuments();
 
+  // photo **************
+
   // const users = await usersQuery.exec();
 
   // let photos = [];
