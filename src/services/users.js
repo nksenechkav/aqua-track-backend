@@ -1,7 +1,4 @@
 import { UsersCollection } from '../db/models/user.js';
-import { calculatePaginationData } from '../utils/calculatePaginationData.js';
-
-import { SORT_ORDER } from '../constants/index.js';
 
 export const getUserById = async (userId) => {
   const user = await UsersCollection.findOne({ _id: userId });
@@ -34,30 +31,24 @@ export const updateUser = async (userId, payload, options = {}) => {
   }
 };
 
-export const getAllUsers = async ({
-  page,
-  perPage,
-  sortOrder = SORT_ORDER.ASC,
-  sortBy = '_id',
-}) => {
-  const limit = perPage;
-  const skip = (page - 1) * perPage;
+export const getAllUsers = async () => {
   const usersQuery = UsersCollection.find();
 
   const usersCount = await UsersCollection.find()
     .merge(usersQuery)
     .countDocuments();
 
-  const users = await usersQuery
-    .skip(skip)
-    .limit(limit)
-    .sort({ [sortBy]: sortOrder })
-    .exec();
+  // const users = await usersQuery.exec();
 
-  const paginationData = calculatePaginationData(usersCount, perPage, page);
+  // let photos = [];
+  // users.forEach((user) => {
+  //   if (user.photo) {
+  //     photos.push(user.photo);
+  //   }
+  // });
 
   return {
-    data: users,
-    ...paginationData,
+    usersCount: usersCount,
+    //usersPhotos: photos,
   };
 };

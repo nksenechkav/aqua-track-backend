@@ -3,9 +3,6 @@ import { env } from '../utils/env.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { updateUser, getUserById, getAllUsers } from '../services/users.js';
 import createHttpError from 'http-errors';
-import { parsePaginationParams } from '../utils/parsePaginationParams.js';
-import { parseSortParams } from '../utils/parseSortParams.js';
-import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const patchUserController = async (req, res, next) => {
   const { userId } = req.params;
@@ -52,20 +49,11 @@ export const getUserByIdController = async (req, res, next) => {
 };
 
 export const getAllUsersController = async (req, res) => {
-  const { page, perPage } = parsePaginationParams(req.query);
-  const { sortBy, sortOrder } = parseSortParams(req.query);
-  const filter = { ...parseFilterParams(req.query) };
-  const contacts = await getAllUsers({
-    page,
-    perPage,
-    sortBy,
-    sortOrder,
-    filter,
-  });
+  const contacts = await getAllUsers();
 
   res.json({
     status: 200,
-    message: 'Successfully found users!',
+    message: 'Successfully found the amount of users!',
     data: contacts,
   });
 };
