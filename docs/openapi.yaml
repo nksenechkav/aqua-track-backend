@@ -18,23 +18,23 @@ servers:
   - url: http://localhost:3000
   - url: https://example.com/api/v1
 paths:
-  /users/register:
+  /auth/register:
     post:
-      $ref: ../swagger/paths/users/register/post.yaml
-  /users/login:
+      $ref: ../swagger/paths/auth/register/post.yaml
+  /auth/login:
     post:
-      $ref: ../swagger/paths/users/login/post.yaml
-  /users/logout:
+      $ref: ../swagger/paths/auth/login/post.yaml
+  /auth/logout:
     post:
-      $ref: ../swagger/paths/users/logout/post.yaml
-  /users/refresh:
+      $ref: ../swagger/paths/auth/logout/post.yaml
+  /auth/refresh:
     post:
-      $ref: ../swagger/paths/users/refresh/post.yaml
-  /user:
+      $ref: ../swagger/paths/auth/refresh/post.yaml
+  /users:
     get:
-      $ref: ../swagger/paths/user/get.yaml
+      $ref: ../swagger/paths/users/get.yaml
     patch:
-      $ref: ../swagger/paths/user/patch.yaml
+      $ref: ../swagger/paths/users/patch.yaml
 
   /water/{id}:
     patch:

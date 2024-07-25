@@ -2,9 +2,9 @@
 
 tags:
   - User
-summary: User refresh
+summary: Token refresh
 operationId: refreshUsersSession
-description: 'User refresh'
+description: 'Token refresh '
 security:
   - bearerAuth: []
 
