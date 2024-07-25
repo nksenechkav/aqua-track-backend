@@ -49,11 +49,11 @@ export const getUserByIdController = async (req, res, next) => {
 };
 
 export const getAllUsersController = async (req, res) => {
-  const contacts = await getAllUsers();
+  const usersCount = await getAllUsers();
 
   res.json({
     status: 200,
     message: 'Successfully found the amount of users!',
-    data: contacts,
+    usersAmount: usersCount,
   });
 };
