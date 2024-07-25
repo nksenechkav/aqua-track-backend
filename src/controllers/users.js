@@ -48,6 +48,7 @@ export const getUserByIdController = async (req, res, next) => {
   });
 };
 
+//TODO прибрати у звязку з тим що ендепоінт повинен повертати загальну кількість користувачів
 export const getAllUsersController = async (req, res) => {
   const usersCount = await getAllUsers();
 

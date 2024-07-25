@@ -1,0 +1,35 @@
+tags:
+  - Users
+summary: Get amount users
+operationId: getAmountUsers
+description: 'Get amount users'
+security: []
+
+responses:
+  '200':
+    description: 'Get amount users'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - usersAmount
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully get amount users!
+            usersAmount:
+              type: number
+              example: 1200
+
+  '404':
+    $ref: '../../components/responses/404.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

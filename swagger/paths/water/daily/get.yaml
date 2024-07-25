@@ -1,18 +1,28 @@
 #/swagger/paths/water/get.yaml
 tags:
   - Water
-summary: Get water info records
-operationId: getInfoWater
-description: 'Get water info records'
+summary: Get water info records by day
+operationId: getInfoWaterDay
+description: 'Get water info records by day'
 security:
   - bearerAuth: []
 parameters:
   - in: query
-    name: timePeriod
+    name: date
     schema:
       type: string
-      enum: ['day', 'month']
-      example: 'day'
+      example: '2024-07-25'
+  - in: query
+    name: sortOrder
+    schema:
+      type: string
+      enum: ['asc', 'desc']
+      default: 'asc'
+  - in: query
+    name: sortBy
+    schema:
+      type: string
+      default: '_id'
 
 responses:
   '200':
@@ -42,11 +52,11 @@ responses:
                 data:
                   type: array
                   items:
-                    $ref: '../../components/schemas/water.yaml'
+                    $ref: '../../../components/schemas/water.yaml'
                 timePeriod:
                   type: string
                   example: 'day'
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: '../../../components/responses/401.yaml'
   '500':
-    $ref: '../../components/responses/500.yaml'
+    $ref: '../../../components/responses/500.yaml'

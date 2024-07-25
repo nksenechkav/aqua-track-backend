@@ -7,6 +7,7 @@ import { SORT_ORDER } from '../constants/index.js';
 export const getUserWaterConsumptionByDay = async ({
   userId,
   date,
+  //TODO згідно ТЗ та фігми пагінації не має на сайті (page та perPage)
   page = 1,
   perPage = 10,
   sortOrder = SORT_ORDER.ASC,
