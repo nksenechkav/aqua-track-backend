@@ -19,12 +19,26 @@ export const createWaterSchema = Joi.object({
   userId: Joi.string().messages({
     'string.base': 'User ID should be a string',
   }),
+  date: Joi.date().iso().messages({
+    'date.base': 'Date should be a valid date',
+    'date.format': 'Date should be in the format YYYY-MM-DD',
+  }),
+  month: Joi.string().pattern(/^\d{4}-\d{2}$/).messages({
+    'string.base': 'Month should be a string',
+    'string.pattern.base': 'Month should be in the format YYYY-MM',
+  }),
 });
 
 export const updateWaterSchema = Joi.object({
   time: Joi.string().min(3).max(30),
   amount: Joi.number().integer().min(50),
   userId: Joi.string(),
+  date: Joi.date().iso().messages({
+    'date.base': 'Date should be a valid date',
+    'date.format': 'Date should be in the format YYYY-MM-DD',
+  }),
+  month: Joi.string().pattern(/^\d{4}-\d{2}$/).messages({
+    'string.base': 'Month should be a string',
+    'string.pattern.base': 'Month should be in the format YYYY-MM',
+  }),
 });
-
-//TODO прописати валідацію стосовно по параметру month: const getUserWaterConsumptionByMonth = month
