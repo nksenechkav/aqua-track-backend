@@ -20,7 +20,8 @@ export const getUserWaterConsumptionByDayController = async (
   next,
 ) => {
   const userId = req.user._id;
-  const { page, perPage } = parsePaginationParams(req.query);
+  const { page, perPage } = parsePaginationParams(req.query); //? якщо використовується фронтом тоді залішаємо
+  //? якщо ні тоді відаляємо const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
   const { date } = req.query;
@@ -32,8 +33,8 @@ export const getUserWaterConsumptionByDayController = async (
   const water = await getUserWaterConsumptionByDay({
     userId,
     date,
-    page,
-    perPage,
+    page, //TODO дивись 23 рядок
+    perPage, //TODO дивись 23 рядок
     sortBy,
     sortOrder,
     filter,
@@ -59,7 +60,7 @@ export const getUserWaterConsumptionByMonthController = async (
   next,
 ) => {
   const userId = req.user._id;
-  const { page, perPage } = parsePaginationParams(req.query);
+  const { page, perPage } = parsePaginationParams(req.query); //TODO дивись 23 рядок
   const { sortBy, sortOrder } = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
   const { month } = req.query;
@@ -71,8 +72,8 @@ export const getUserWaterConsumptionByMonthController = async (
   const water = await getUserWaterConsumptionByMonth({
     userId,
     month,
-    page,
-    perPage,
+    page, //TODO дивись 23 рядок
+    perPage, //TODO дивись 23 рядок
     sortBy,
     sortOrder,
     filter,

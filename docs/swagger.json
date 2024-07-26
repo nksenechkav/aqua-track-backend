@@ -455,8 +455,16 @@
                       "example": "Successfully get amount users!"
                     },
                     "usersAmount": {
-                      "type": "number",
-                      "example": 1200
+                      "type": "object",
+                      "required": [
+                        "amount"
+                      ],
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "example": 1200
+                        }
+                      }
                     }
                   }
                 }
@@ -721,7 +729,7 @@
             "name": "month",
             "schema": {
               "type": "number",
-              "example": 4
+              "example": 7
             }
           },
           {
@@ -825,7 +833,7 @@
                   "time": {
                     "description": "time record",
                     "type": "string",
-                    "example": "10:12"
+                    "example": "2024-07-24T10:12"
                   },
                   "amount": {
                     "description": "The value of the water used",
@@ -968,7 +976,7 @@
           "time": {
             "description": "time record",
             "type": "string",
-            "example": "10:12"
+            "example": "2024-07-24T10:12"
           },
           "amount": {
             "description": "The value of the water used",

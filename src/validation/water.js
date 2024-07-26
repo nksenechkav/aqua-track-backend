@@ -3,6 +3,7 @@
 import Joi from 'joi';
 
 export const createWaterSchema = Joi.object({
+    //TODO додати регулярний вираз regex
   time: Joi.string().min(15).max(30).required().messages({
     'string.base': 'Time should be a string',
     'string.min': 'Time should have at least {#limit} characters',
@@ -20,13 +21,17 @@ export const createWaterSchema = Joi.object({
     'string.base': 'User ID should be a string',
   }),
   date: Joi.date().iso().messages({
+    //TODO схема валідації не відповідає схемі Mongoose DB
     'date.base': 'Date should be a valid date',
     'date.format': 'Date should be in the format YYYY-MM-DD',
   }),
-  month: Joi.string().pattern(/^\d{4}-\d{2}$/).messages({
-    'string.base': 'Month should be a string',
-    'string.pattern.base': 'Month should be in the format YYYY-MM',
-  }),
+  month: Joi.string()
+    .pattern(/^\d{4}-\d{2}$/)
+    .messages({
+      //TODO схема валідації не відповідає схемі Mongoose DB
+      'string.base': 'Month should be a string',
+      'string.pattern.base': 'Month should be in the format YYYY-MM',
+    }),
 });
 
 export const updateWaterSchema = Joi.object({
@@ -34,11 +39,14 @@ export const updateWaterSchema = Joi.object({
   amount: Joi.number().integer().min(50),
   userId: Joi.string(),
   date: Joi.date().iso().messages({
+    //TODO схема валідації не відповідає схемі Mongoose DB
     'date.base': 'Date should be a valid date',
     'date.format': 'Date should be in the format YYYY-MM-DD',
   }),
-  month: Joi.string().pattern(/^\d{4}-\d{2}$/).messages({
-    'string.base': 'Month should be a string',
-    'string.pattern.base': 'Month should be in the format YYYY-MM',
-  }),
+  month: Joi.string() //TODO схема валідації не відповідає схемі Mongoose DB
+    .pattern(/^\d{4}-\d{2}$/)
+    .messages({
+      'string.base': 'Month should be a string',
+      'string.pattern.base': 'Month should be in the format YYYY-MM',
+    }),
 });
