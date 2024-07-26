@@ -3,12 +3,10 @@
 import Joi from 'joi';
 
 export const createWaterSchema = Joi.object({
-    //TODO додати регулярний вираз regex
-  time: Joi.string().min(15).max(30).required().messages({
-    'string.base': 'Time should be a string',
-    'string.min': 'Time should have at least {#limit} characters',
-    'string.max': 'Time should have at most {#limit} characters',
-    'any.required': 'Time is required',
+  time: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/).required().messages({
+      'string.base': 'Time should be a string',
+      'string.pattern.base': 'Time should be in the format YYYY-MM-DDTHH:MM:SSZ',
+      'any.required': 'Time is required',
   }),
   amount: Joi.number().integer().min(50).max(5000).required().messages({
     'number.base': 'Amount should be a number',
@@ -20,33 +18,10 @@ export const createWaterSchema = Joi.object({
   userId: Joi.string().messages({
     'string.base': 'User ID should be a string',
   }),
-  date: Joi.date().iso().messages({
-    //TODO схема валідації не відповідає схемі Mongoose DB
-    'date.base': 'Date should be a valid date',
-    'date.format': 'Date should be in the format YYYY-MM-DD',
-  }),
-  month: Joi.string()
-    .pattern(/^\d{4}-\d{2}$/)
-    .messages({
-      //TODO схема валідації не відповідає схемі Mongoose DB
-      'string.base': 'Month should be a string',
-      'string.pattern.base': 'Month should be in the format YYYY-MM',
-    }),
 });
 
 export const updateWaterSchema = Joi.object({
   time: Joi.string().min(15).max(30),
   amount: Joi.number().integer().min(50),
   userId: Joi.string(),
-  date: Joi.date().iso().messages({
-    //TODO схема валідації не відповідає схемі Mongoose DB
-    'date.base': 'Date should be a valid date',
-    'date.format': 'Date should be in the format YYYY-MM-DD',
-  }),
-  month: Joi.string() //TODO схема валідації не відповідає схемі Mongoose DB
-    .pattern(/^\d{4}-\d{2}$/)
-    .messages({
-      'string.base': 'Month should be a string',
-      'string.pattern.base': 'Month should be in the format YYYY-MM',
-    }),
 });
