@@ -5,7 +5,7 @@ import { updateUser, getUserById, getAllUsers } from '../services/users.js';
 import createHttpError from 'http-errors';
 
 export const patchUserController = async (req, res, next) => {
-  const { userId } = req.params;
+  const { userId } = req.params; //TODO const { _id: userId } = req.user
   const photo = req.file;
   let photoUrl;
 
@@ -32,10 +32,10 @@ export const patchUserController = async (req, res, next) => {
     data: result.contact,
   });
 };
-
+//TODO userId
 export const getUserByIdController = async (req, res, next) => {
-  const { userId } = req.params;
-  const user = await getUserById(userId);
+  const { userId } = req.params; //TODO delete, тобто видалити
+  const user = await getUserById(userId); //TODO const user = req.user
   if (!user) {
     next(createHttpError(404, 'User not found'));
     return;
@@ -48,7 +48,6 @@ export const getUserByIdController = async (req, res, next) => {
   });
 };
 
-//TODO прибрати у звязку з тим що ендепоінт повинен повертати загальну кількість користувачів
 export const getAllUsersController = async (req, res) => {
   const usersCount = await getAllUsers();
 

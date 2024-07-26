@@ -455,8 +455,16 @@
                       "example": "Successfully get amount users!"
                     },
                     "usersAmount": {
-                      "type": "number",
-                      "example": 1200
+                      "type": "object",
+                      "required": [
+                        "amount"
+                      ],
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "example": 1200
+                        }
+                      }
                     }
                   }
                 }

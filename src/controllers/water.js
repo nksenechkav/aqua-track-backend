@@ -20,7 +20,8 @@ export const getUserWaterConsumptionByDayController = async (
   next,
 ) => {
   const userId = req.user._id;
-  const { page, perPage } = parsePaginationParams(req.query);
+  const { page, perPage } = parsePaginationParams(req.query); //? якщо використовується фронтом тоді залішаємо
+  //? якщо ні тоді відаляємо const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
   const { date } = req.query;
