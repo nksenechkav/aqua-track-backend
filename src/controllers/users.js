@@ -3,9 +3,6 @@ import { env } from '../utils/env.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { updateUser, getUserById, getAllUsers } from '../services/users.js';
 import createHttpError from 'http-errors';
-import { parsePaginationParams } from '../utils/parsePaginationParams.js';
-import { parseSortParams } from '../utils/parseSortParams.js';
-import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const patchUserController = async (req, res, next) => {
   const { userId } = req.params;
@@ -53,20 +50,11 @@ export const getUserByIdController = async (req, res, next) => {
 
 //TODO прибрати у звязку з тим що ендепоінт повинен повертати загальну кількість користувачів
 export const getAllUsersController = async (req, res) => {
-  const { page, perPage } = parsePaginationParams(req.query);
-  const { sortBy, sortOrder } = parseSortParams(req.query);
-  const filter = { ...parseFilterParams(req.query) };
-  const contacts = await getAllUsers({
-    page,
-    perPage,
-    sortBy,
-    sortOrder,
-    filter,
-  });
+  const usersCount = await getAllUsers();
 
   res.json({
     status: 200,
-    message: 'Successfully found users!',
-    data: contacts, //TODO зміни назву на usersAmount
+    message: 'Successfully found the amount of users!',
+    usersAmount: usersCount,
   });
 };
