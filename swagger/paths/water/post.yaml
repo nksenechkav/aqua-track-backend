@@ -19,7 +19,7 @@ requestBody:
           time:
             description: 'time record'
             type: string
-            example: '10:12'
+            example: '2024-07-24T10:12'
           amount:
             description: 'The value of the water used'
             type: integer

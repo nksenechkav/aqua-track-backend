@@ -11,7 +11,7 @@ parameters:
     name: month
     schema:
       type: number
-      example: 4
+      example: 07
   - in: query
     name: sortOrder
     schema:

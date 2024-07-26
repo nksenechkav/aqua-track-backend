@@ -62,7 +62,7 @@ export const getUserWaterConsumptionByMonth = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const startDate = new Date(`${month}-01T00:00:00Z`);
+  const startDate = new Date(`${month}-01T00:00:00Z`); //TODO дінамічно підставити рік приклад (`2024-${month}-01T00:00:00Z`)
   const endDate = new Date(startDate);
   endDate.setUTCMonth(startDate.getUTCMonth() + 1);
 
