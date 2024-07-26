@@ -14,7 +14,7 @@ import createHttpError from 'http-errors';
 
 import jwt from 'jsonwebtoken';
 
-import { SMTP, SORT_ORDER } from '../constants/index.js';
+import { SMTP } from '../constants/index.js';
 import { env } from '../utils/env.js';
 import { sendEmail } from '../utils/sendMail.js';
 
