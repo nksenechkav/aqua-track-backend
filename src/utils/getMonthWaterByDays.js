@@ -6,16 +6,19 @@ export const getMonthWaterByDays = (waterEntries) => {
 
   // Створюємо об'єкт для зберігання води за кожен день
   const waterPerDays = {};
-  console.log("Input waterEntries:", waterEntries);
+  console.log('Input waterEntries:', waterEntries);
 
   // Функція для корекції формату дати
   const correctDateFormat = (dateStr) => {
-    return dateStr.replace(/T(\d{1,2})(\d{2}):(\d{2}):(\d{2})Z$/, (match, p1, p2, p3, p4) => {
-      // Виправляємо формат годин і хвилин
-      const correctedHour = p1.length === 1 ? '0' + p1 : p1;
-      const correctedMinute = p2.length === 1 ? '0' + p2 : p2;
-      return `T${correctedHour}:${correctedMinute}:${p3}Z`;
-    });
+    return dateStr.replace(
+      /T(\d{1,2})(\d{2}):(\d{2}):(\d{2})Z$/,
+      (match, p1, p2, p3, p4) => {
+        // Виправляємо формат годин і хвилин
+        const correctedHour = p1.length === 1 ? '0' + p1 : p1;
+        const correctedMinute = p2.length === 1 ? '0' + p2 : p2;
+        return `T${correctedHour}:${correctedMinute}:${p3}Z`;
+      },
+    );
   };
 
   // Обробляємо кожен запис води
@@ -36,7 +39,9 @@ export const getMonthWaterByDays = (waterEntries) => {
       }
 
       // Форматуємо дату у вигляді YYYY-MM-DD
-      const formattedDate = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
+      const formattedDate = `${date.getUTCFullYear()}-${String(
+        date.getUTCMonth() + 1,
+      ).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
       console.log(`Formatted date: ${formattedDate}`);
 
       // Якщо дата ще не існує в об'єкті, створюємо новий запис
@@ -44,19 +49,17 @@ export const getMonthWaterByDays = (waterEntries) => {
         waterPerDays[formattedDate] = {
           time: formattedDate,
           amount: 0,
-          _id: entry._id, // Зберігаємо _id з першого запису
           userId: entry.userId,
-          createdAt: entry.createdAt,
-          updatedAt: entry.updatedAt,
         };
       }
 
       // Додаємо кількість води до відповідного дня
       waterPerDays[formattedDate].amount += entry.amount;
-      console.log(`Updated waterPerDays:`, waterPerDays);
     } catch (error) {
       // Виводимо помилку, якщо щось пішло не так при обробці запису
-      console.error(`Error processing entry: ${JSON.stringify(entry)} - ${error.message}`);
+      console.error(
+        `Error processing entry: ${JSON.stringify(entry)} - ${error.message}`,
+      );
       continue; // Пропускаємо цей запис при помилці
     }
   }
@@ -64,7 +67,9 @@ export const getMonthWaterByDays = (waterEntries) => {
   // Переконуємось, що всі дні місяця представлені
   // Отримуємо рік і місяць з першого запису
   const firstEntryDate = new Date(waterEntries[0].time);
-  console.log(`Year: ${firstEntryDate.getUTCFullYear()} Month: ${firstEntryDate.getUTCMonth()}`);
+  console.log(
+    `Year: ${firstEntryDate.getUTCFullYear()} Month: ${firstEntryDate.getUTCMonth()}`,
+  );
 
   const year = firstEntryDate.getUTCFullYear();
   const month = firstEntryDate.getUTCMonth();
@@ -75,21 +80,23 @@ export const getMonthWaterByDays = (waterEntries) => {
 
   // Перебираємо всі дні місяця та додаємо їх до waterPerDays, якщо їх там ще немає
   for (let day = 1; day <= daysInMonth; day++) {
-    const formattedDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const formattedDate = `${year}-${String(month + 1).padStart(
+      2,
+      '0',
+    )}-${String(day).padStart(2, '0')}`;
     if (!waterPerDays[formattedDate]) {
       waterPerDays[formattedDate] = {
         time: formattedDate,
         amount: 0,
-        _id: null, // Якщо даних немає, залишаємо як null
         userId: null,
-        createdAt: null,
-        updatedAt: null,
       };
     }
   }
 
   // Перетворюємо об'єкт waterPerDays у масив і сортуємо його за датою
-  const resultArray = Object.values(waterPerDays).sort((a, b) => new Date(a.time) - new Date(b.time));
+  const resultArray = Object.values(waterPerDays).sort(
+    (a, b) => new Date(a.time) - new Date(b.time),
+  );
   console.log('Sorted result array:', resultArray);
 
   return resultArray;

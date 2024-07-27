@@ -5,7 +5,7 @@ const usersSchema = new Schema(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    name: { type: String, required: false },
+    name: { type: String },
     photo: { type: String },
     gender: {
       type: String,
@@ -14,11 +14,11 @@ const usersSchema = new Schema(
     },
     waterAmount: {
       type: Number,
-      required: false,
+
       default: 1.8,
     },
-    weight: { type: Number, required: false, default: 0 },
-    sportHours: { type: Number, required: false, default: 0 },
+    weight: { type: Number, default: 0 },
+    sportHours: { type: Number, default: 0 },
   },
   { timestamps: true, versionKey: false },
 );

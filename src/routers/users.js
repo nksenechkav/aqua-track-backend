@@ -20,9 +20,9 @@ router.get('/', ctrlWrapper(getAllUsersController));
 
 router.use(authenticate);
 
-router.get('/:userId', ctrlWrapper(getUserByIdController)); //TODO зробити Роут "/currentUser"
+router.get('/currentUser', ctrlWrapper(getUserByIdController));
 router.patch(
-  '/:userId', //TODO зробити Роут "/currentUser"
+  '/currentUser',
   validateBody(updateUserSchema),
   upload.single('photo'),
   ctrlWrapper(patchUserController),

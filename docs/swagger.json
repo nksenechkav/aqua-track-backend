@@ -256,33 +256,22 @@
         }
       }
     },
-    "/users/{userId}": {
+    "/users/currentUser": {
       "get": {
         "tags": [
           "Users"
         ],
-        "summary": "Get user by ID",
+        "summary": "Get current user",
         "operationId": "getUserById",
-        "description": "Get user by ID",
+        "description": "Get current user",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "userId",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "Get user by ID",
+            "description": "Get current user",
             "content": {
               "application/json": {
                 "schema": {
@@ -320,16 +309,14 @@
             "$ref": "#/components/responses/500"
           }
         }
-      }
-    },
-    "/users": {
+      },
       "patch": {
         "tags": [
           "Users"
         ],
-        "summary": "Update user by token",
+        "summary": "Update current user",
         "operationId": "updateUser",
-        "description": "Update user by token",
+        "description": "Update current user by token",
         "security": [
           {
             "bearerAuth": []
@@ -403,7 +390,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found user"
+                      "example": "Successfully updated user"
                     },
                     "data": {
                       "type": "object",
@@ -424,7 +411,9 @@
             "$ref": "#/components/responses/500"
           }
         }
-      },
+      }
+    },
+    "/users": {
       "get": {
         "tags": [
           "Users"
@@ -457,10 +446,10 @@
                     "usersAmount": {
                       "type": "object",
                       "required": [
-                        "amount"
+                        "usersAmount"
                       ],
                       "properties": {
-                        "amount": {
+                        "usersAmount": {
                           "type": "number",
                           "example": 1200
                         }
@@ -516,17 +505,12 @@
                   "time": {
                     "description": "time record",
                     "type": "string",
-                    "example": "10:12"
+                    "example": "2024-07-24T10:12:22Z"
                   },
                   "amount": {
                     "description": "The value of the water used",
                     "type": "integer",
                     "example": 50
-                  },
-                  "userId": {
-                    "description": "User's parent id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
                   }
                 }
               }
@@ -728,8 +712,8 @@
             "in": "query",
             "name": "month",
             "schema": {
-              "type": "number",
-              "example": 7
+              "type": "string",
+              "example": "2024-07"
             }
           },
           {
@@ -833,7 +817,7 @@
                   "time": {
                     "description": "time record",
                     "type": "string",
-                    "example": "2024-07-24T10:12"
+                    "example": "2024-07-24T10:12:22Z"
                   },
                   "amount": {
                     "description": "The value of the water used",

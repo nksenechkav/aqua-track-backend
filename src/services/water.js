@@ -52,16 +52,11 @@ export const getUserWaterConsumptionByDay = async ({
 export const getUserWaterConsumptionByMonth = async ({
   userId,
   month,
-  page = 1,
-  perPage = 400,
+
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
-  // filter = {},
 }) => {
-  const limit = perPage;
-  const skip = (page - 1) * perPage;
-
-  const startDate = new Date(`${month}-01T00:00:00Z`); //TODO дінамічно підставити рік приклад (`2024-${month}-01T00:00:00Z`)
+  const startDate = new Date(`${month}-01T00:00:00Z`);
   const endDate = new Date(startDate);
   endDate.setUTCMonth(startDate.getUTCMonth() + 1);
 
@@ -73,24 +68,13 @@ export const getUserWaterConsumptionByMonth = async ({
     },
   });
 
-  // if (filter.time) {
-  //   waterQuery.where('time').equals(filter.time);
-  // }
-
   const [waterCount, water] = await Promise.all([
     WaterCollection.find().merge(waterQuery).countDocuments(),
-    waterQuery
-      .skip(skip)
-      .limit(limit)
-      .sort({ [sortBy]: sortOrder })
-      .exec(),
+    waterQuery.sort({ [sortBy]: sortOrder }).exec(),
   ]);
-
-  const paginationData = calculatePaginationData(waterCount, perPage, page);
 
   return {
     data: water,
-    paginationData,
   };
 };
 

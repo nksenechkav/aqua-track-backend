@@ -26,9 +26,9 @@ responses:
             usersAmount:
               type: object
               required:
-                - amount
+                - usersAmount
               properties:
-                amount:
+                usersAmount:
                   type: number
                   example: 1200
 
