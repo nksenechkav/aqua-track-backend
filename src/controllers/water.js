@@ -20,9 +20,9 @@ export const getUserWaterConsumptionByDayController = async (
   next,
 ) => {
   const userId = req.user._id;
-  // const { page, perPage } = parsePaginationParams(req.query);
+
   const { sortBy, sortOrder } = parseSortParams(req.query);
-  // const filter = parseFilterParams(req.query);
+
   const { date } = req.query;
 
   if (!date) {
@@ -32,11 +32,9 @@ export const getUserWaterConsumptionByDayController = async (
   const water = await getUserWaterConsumptionByDay({
     userId,
     date,
-    // page,
-    // perPage,
+
     sortBy,
     sortOrder,
-    // filter,
   });
 
   if (water.data.length === 0) {
@@ -59,9 +57,9 @@ export const getUserWaterConsumptionByMonthController = async (
   next,
 ) => {
   const userId = req.user._id;
-  const { page, perPage } = parsePaginationParams(req.query);
+
   const { sortBy, sortOrder } = parseSortParams(req.query);
-  // const filter = parseFilterParams(req.query);
+
   const { month } = req.query;
 
   if (!month) {
@@ -71,11 +69,9 @@ export const getUserWaterConsumptionByMonthController = async (
   const water = await getUserWaterConsumptionByMonth({
     userId,
     month,
-    page,
-    perPage,
+
     sortBy,
     sortOrder,
-    // filter,
   });
 
   if (water.data.length === 0) {

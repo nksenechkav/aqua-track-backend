@@ -30,12 +30,12 @@ paths:
   /auth/refresh-access-token:
     post:
       $ref: ../swagger/paths/auth/refresh-access-token/post.yaml
-  /users/{userId}:
+  /users/currentUser:
     get:
-      $ref: ../swagger/paths/users/{userId}/get.yaml
-  /users:
+      $ref: ../swagger/paths/users/currentUser/get.yaml
     patch:
-      $ref: ../swagger/paths/users/patch.yaml
+      $ref: ../swagger/paths/users/currentUser/patch.yaml
+  /users:
     get:
       $ref: ../swagger/paths/users/get.yaml
 
