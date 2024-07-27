@@ -50,6 +50,7 @@ export const getMonthWaterByDays = (waterEntries) => {
           time: formattedDate,
           amount: 0,
           userId: entry.userId,
+          _id: entry._id,
         };
       }
 
@@ -89,6 +90,7 @@ export const getMonthWaterByDays = (waterEntries) => {
         time: formattedDate,
         amount: 0,
         userId: null,
+        _id: null, // Якщо даних немає, залишаємо як null
       };
     }
   }

@@ -1,21 +1,14 @@
 //  // src/services/water.js
 
 import { WaterCollection } from '../db/models/water.js';
-import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
 
 export const getUserWaterConsumptionByDay = async ({
   userId,
   date,
-  // page = 1,
-  // perPage = 10,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
-  // filter = {},
 }) => {
-  // const limit = perPage;
-  // const skip = (page - 1) * perPage;
-
   const startDate = new Date(date);
   const endDate = new Date(date);
   endDate.setUTCDate(endDate.getUTCDate() + 1); // Наступний день для визначення кінця діапазону
@@ -28,31 +21,22 @@ export const getUserWaterConsumptionByDay = async ({
     },
   });
 
-  // if (filter.time) {
-  //   waterQuery.where('time').equals(filter.time);
-  // }
-
   const [waterCount, water] = await Promise.all([
     WaterCollection.find().merge(waterQuery).countDocuments(),
     waterQuery
-      // .skip(skip)
-      // .limit(limit)
       .sort({ [sortBy]: sortOrder })
       .exec(),
   ]);
 
-  // const paginationData = calculatePaginationData(waterCount, perPage, page);
-
   return {
     data: water,
-    waterCount,
+    waterCount
   };
 };
 
 export const getUserWaterConsumptionByMonth = async ({
   userId,
   month,
-
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
 }) => {
@@ -75,6 +59,7 @@ export const getUserWaterConsumptionByMonth = async ({
 
   return {
     data: water,
+    waterCount
   };
 };
 

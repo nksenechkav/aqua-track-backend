@@ -7,9 +7,7 @@ import {
   getUserWaterConsumptionByMonth,
   updateWater,
 } from '../services/water.js';
-import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
-// import { parseFilterParams } from '../utils/parseFilterParams.js';
 import createHttpError from 'http-errors';
 import { calculateTotalWaterAmount } from '../utils/сalculateTotalWaterAmount.js';
 import { getMonthWaterByDays } from '../utils/getMonthWaterByDays.js';
@@ -87,7 +85,7 @@ export const getUserWaterConsumptionByMonthController = async (
     message: `Successfully fetched water consumption for the month ${month}`,
     totalWaterAmount,
     water: {
-      data: monthWaterByDays,
+      data: monthWaterByDays
     },
   });
 };
