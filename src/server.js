@@ -20,8 +20,8 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   // //github pages
-  'https://xssayy.github.io/aquatrack-frontend/',
-  'https://aqua-track-backend.onrender.com/'
+  'https://xssayy.github.io/aquatrack-frontend',
+  'https://aqua-track-backend.onrender.com'
 ];
 
 export const setupServer = () => {
