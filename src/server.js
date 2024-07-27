@@ -19,7 +19,13 @@ export const setupServer = () => {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use(cors());
+  app.use(
+    cors({
+      //origin: 'http://localhost:5173',
+      origin: 'https://aqua-track-backend.onrender.com/',
+      credentials: true,
+    }),
+  );
   app.use(cookieParser());
   app.use('/uploads', express.static(UPLOAD_DIR));
   app.use('/api-docs', swaggerDocs());
