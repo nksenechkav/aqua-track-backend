@@ -14,6 +14,14 @@ import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', '3000'));
 
+//дозволені домени, з яких можна робити запити
+const allowedOrigins = [
+  //локалхост для тестування
+  'http://localhost:5173',
+  //github pages
+  'https://xssayy.github.io/aquatrack-frontend/',
+];
+
 export const setupServer = () => {
   const app = express();
 
@@ -21,11 +29,20 @@ export const setupServer = () => {
   app.use(express.urlencoded({ extended: true }));
   app.use(
     cors({
-      // origin: 'http://localhost:3000',
-      origin: 'https://xssayy.github.io/aquatrack-frontend/',
-      credentials: true,
+      origin: function (origin, callback) {
+        // Перевірте, чи є `origin` у списку дозволених
+        if (allowedOrigins.includes(origin) || !origin) {
+          // Якщо так, дозволити запит
+          callback(null, true);
+        } else {
+          // Інакше заборонити запит
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+      credentials: true, // Дозволити передачу файлів cookie
     }),
   );
+  
   app.use(cookieParser());
   app.use('/uploads', express.static(UPLOAD_DIR));
   app.use('/api-docs', swaggerDocs());
