@@ -1,11 +1,11 @@
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { env } from '../utils/env.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
-import { updateUser, getUserById, getAllUsers } from '../services/users.js';
+import { updateUser, getAllUsers } from '../services/users.js';
 import createHttpError from 'http-errors';
 
 export const patchUserController = async (req, res, next) => {
-  const { userId } = req.params; //TODO const { _id: userId } = req.user
+  const userId  = req.user._id;
   const photo = req.file;
   let photoUrl;
 
@@ -32,10 +32,9 @@ export const patchUserController = async (req, res, next) => {
     data: result.contact,
   });
 };
-//TODO userId
 export const getUserByIdController = async (req, res, next) => {
-  const { userId } = req.params; //TODO delete, тобто видалити
-  const user = await getUserById(userId); //TODO const user = req.user
+  const user = req.user;
+  const userId  = user._id;
   if (!user) {
     next(createHttpError(404, 'User not found'));
     return;

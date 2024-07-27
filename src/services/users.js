@@ -1,9 +1,9 @@
 import { UsersCollection } from '../db/models/user.js';
 
-export const getUserById = async (userId) => {
-  const user = await UsersCollection.findOne({ _id: userId });
-  return user;
-};
+// export const getUserById = async (userId) => {
+//   const user = await UsersCollection.findOne({ userId });
+//   return user;
+// };
 
 export const updateUser = async (userId, payload, options = {}) => {
   payload.photo = options.photo;

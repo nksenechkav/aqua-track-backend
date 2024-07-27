@@ -7,15 +7,14 @@ import { SORT_ORDER } from '../constants/index.js';
 export const getUserWaterConsumptionByDay = async ({
   userId,
   date,
-  //TODO згідно ТЗ та фігми пагінації не має на сайті (page та perPage)
-  page = 1,
-  perPage = 10,
+  // page = 1,
+  // perPage = 10,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
-  filter = {},
+  // filter = {},
 }) => {
-  const limit = perPage;
-  const skip = (page - 1) * perPage;
+  // const limit = perPage;
+  // const skip = (page - 1) * perPage;
 
   const startDate = new Date(date);
   const endDate = new Date(date);
@@ -29,24 +28,24 @@ export const getUserWaterConsumptionByDay = async ({
     },
   });
 
-  if (filter.time) {
-    waterQuery.where('time').equals(filter.time);
-  }
+  // if (filter.time) {
+  //   waterQuery.where('time').equals(filter.time);
+  // }
 
   const [waterCount, water] = await Promise.all([
     WaterCollection.find().merge(waterQuery).countDocuments(),
     waterQuery
-      .skip(skip)
-      .limit(limit)
+      // .skip(skip)
+      // .limit(limit)
       .sort({ [sortBy]: sortOrder })
       .exec(),
   ]);
 
-  const paginationData = calculatePaginationData(waterCount, perPage, page);
+  // const paginationData = calculatePaginationData(waterCount, perPage, page);
 
   return {
     data: water,
-    paginationData,
+    waterCount,
   };
 };
 
@@ -57,7 +56,7 @@ export const getUserWaterConsumptionByMonth = async ({
   perPage = 400,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
-  filter = {},
+  // filter = {},
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
@@ -74,9 +73,9 @@ export const getUserWaterConsumptionByMonth = async ({
     },
   });
 
-  if (filter.time) {
-    waterQuery.where('time').equals(filter.time);
-  }
+  // if (filter.time) {
+  //   waterQuery.where('time').equals(filter.time);
+  // }
 
   const [waterCount, water] = await Promise.all([
     WaterCollection.find().merge(waterQuery).countDocuments(),
