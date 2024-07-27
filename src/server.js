@@ -18,8 +18,10 @@ const PORT = Number(env('PORT', '3000'));
 const allowedOrigins = [
   //локалхост для тестування
   'http://localhost:5173',
-  //github pages
+  'http://localhost:3000',
+  // //github pages
   'https://xssayy.github.io/aquatrack-frontend/',
+  'https://aqua-track-backend.onrender.com/'
 ];
 
 export const setupServer = () => {
@@ -27,6 +29,7 @@ export const setupServer = () => {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  // app.use(cors());
   app.use(
     cors({
       origin: function (origin, callback) {
@@ -42,7 +45,7 @@ export const setupServer = () => {
       credentials: true, // Дозволити передачу файлів cookie
     }),
   );
-  
+
   app.use(cookieParser());
   app.use('/uploads', express.static(UPLOAD_DIR));
   app.use('/api-docs', swaggerDocs());

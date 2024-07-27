@@ -17,7 +17,7 @@ export const updateUser = async (userId, payload, options = {}) => {
         ...options,
       },
     );
-
+    console.log(rawResult.value);
     if (!rawResult || !rawResult.value) {
       return null;
     }
