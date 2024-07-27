@@ -29,7 +29,7 @@ export const patchUserController = async (req, res, next) => {
   res.json({
     status: 200,
     message: `Successfully updated user!`,
-    data: result.contact,
+    data: result.user,
   });
 };
 export const getUserByIdController = async (req, res, next) => {

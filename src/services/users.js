@@ -22,7 +22,7 @@ export const updateUser = async (userId, payload, options = {}) => {
       return null;
     }
     return {
-      contact: rawResult.value,
+      user: rawResult.value,
       isNew: Boolean(rawResult?.lastErrorObject?.upserted),
     };
   } catch (error) {

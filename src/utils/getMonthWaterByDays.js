@@ -12,7 +12,7 @@ export const getMonthWaterByDays = (waterEntries) => {
   const correctDateFormat = (dateStr) => {
     return dateStr.replace(
       /T(\d{1,2})(\d{2}):(\d{2}):(\d{2})Z$/,
-      (match, p1, p2, p3, p4) => {
+      (match, p1, p2, p3) => {
         // Виправляємо формат годин і хвилин
         const correctedHour = p1.length === 1 ? '0' + p1 : p1;
         const correctedMinute = p2.length === 1 ? '0' + p2 : p2;
