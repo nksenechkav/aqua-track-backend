@@ -5,8 +5,9 @@ import { updateUser, getAllUsers } from '../services/users.js';
 import createHttpError from 'http-errors';
 
 export const patchUserController = async (req, res, next) => {
-  const userId  = req.user._id;
+  const userId = req.user._id;
   const photo = req.file;
+  const user = req.body;
   let photoUrl;
 
   if (photo) {
@@ -17,7 +18,9 @@ export const patchUserController = async (req, res, next) => {
     }
   }
 
-  const result = await updateUser(userId, req.body, {
+  const result = await updateUser({
+    userId,
+    user,
     photo: photoUrl,
   });
 
@@ -34,7 +37,7 @@ export const patchUserController = async (req, res, next) => {
 };
 export const getUserByIdController = async (req, res, next) => {
   const user = req.user;
-  const userId  = user._id;
+  const userId = user._id;
   if (!user) {
     next(createHttpError(404, 'User not found'));
     return;
