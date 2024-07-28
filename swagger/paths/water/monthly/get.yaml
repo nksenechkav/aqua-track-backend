@@ -34,7 +34,8 @@ responses:
           required:
             - status
             - message
-            - data
+            - totalWaterAmount
+            - water
           properties:
             status:
               type: integer
@@ -42,7 +43,10 @@ responses:
             message:
               type: string
               example: Successfully get info water records!
-            data:
+            totalWaterAmount:
+              type: number
+              example: 300
+            water:
               type: object
               required:
                 - data
