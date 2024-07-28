@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 export const getMonthWaterByDays = (waterEntries) => {
   // Перевіряємо, чи є waterEntries масивом і чи він не порожній
   if (!Array.isArray(waterEntries) || waterEntries.length === 0) {
@@ -50,7 +52,7 @@ export const getMonthWaterByDays = (waterEntries) => {
           time: formattedDate,
           amount: 0,
           userId: entry.userId,
-          _id: entry._id,
+          _id: new mongoose.Types.ObjectId(), // Генеруємо новий унікальний _id
         };
       }
 
