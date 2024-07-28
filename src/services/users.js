@@ -1,24 +1,20 @@
 import { UsersCollection } from '../db/models/user.js';
 
-export const updateUser = async (userId, payload, options = {}) => {
-  payload.photo = options.photo;
+export const updateUser = async (input) => {
+  const updateData = { ...input.user };
+  if (input.photo) {
+    updateData.photo = input.photo;
+  }
   try {
-    const rawResult = await UsersCollection.findOneAndUpdate(
-      { _id: userId },
-      payload,
-      {
-        new: true,
-        includeResultMetadata: true,
-        ...options,
-      },
+    const updateUser = await UsersCollection.findOneAndUpdate(
+      { _id: input.userId },
+      { $set: updateData },
+      { new: true },
     );
-    console.log(rawResult.value);
-    if (!rawResult || !rawResult.value) {
-      return null;
-    }
+
     return {
-      user: rawResult.value,
-      isNew: Boolean(rawResult?.lastErrorObject?.upserted),
+      user: updateUser,
+      isNew: Boolean(updateUser?.lastErrorObject?.upserted),
     };
   } catch (error) {
     console.error('Error during update user:', error);
