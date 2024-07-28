@@ -6,7 +6,9 @@ const usersSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     name: { type: String },
-    photo: { type: String },
+    photo: { type: String,
+      default: 'https://res.cloudinary.com/delucsi8d/image/upload/v1722184393/avatar_gwefos.png'
+    },
     gender: {
       type: String,
       enum: ['woman', 'man'],
