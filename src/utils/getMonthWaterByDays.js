@@ -82,7 +82,7 @@ export const getMonthWaterByDays = (waterEntries) => {
   console.log(`Days in month: ${daysInMonth}`);
 
   // Перебираємо всі дні місяця та додаємо їх до waterPerDays, якщо їх там ще немає
-  for (let day = 1; day <= daysInMonth; day++) {
+  for (let day = 1; day <= daysInMonth + 1; day++) {
     const formattedDate = `${year}-${String(month + 1).padStart(
       2,
       '0',
