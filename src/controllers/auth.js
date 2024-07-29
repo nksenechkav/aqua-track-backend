@@ -16,10 +16,14 @@ const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + THIRTY_DAYS),
+    sameSite: 'None',
+    secure: process.env.NODE_ENV === 'production',
   });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + THIRTY_DAYS),
+    sameSite: 'None',
+    secure: process.env.NODE_ENV === 'production',
   });
 };
 
@@ -48,12 +52,6 @@ export const loginUserController = async (req, res) => {
 };
 
 export const refreshUserSessionController = async (req, res) => {
-  console.log('req: ', req);
-  console.log('req.cookies: ', req.cookies);
-
-  console.log('sessionId: ', req.cookies.sessionId);
-  console.log('refreshToken: ', req.cookies.refreshToken);
-  
   const session = await refreshUsersSession({
     sessionId: req.cookies.sessionId,
     refreshToken: req.cookies.refreshToken,
