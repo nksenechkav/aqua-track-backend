@@ -55,6 +55,9 @@ export const setupServer = () => {
     pino({
       transport: {
         target: 'pino-pretty',
+        options: {
+          colorize: true, // приклад опції для кольорового виведення
+        },
       },
     }),
   );
