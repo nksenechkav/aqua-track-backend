@@ -30,7 +30,6 @@ export const getUserWaterConsumptionByDayController = async (
   const water = await getUserWaterConsumptionByDay({
     userId,
     date,
-
     sortBy,
     sortOrder,
   });
@@ -67,7 +66,6 @@ export const getUserWaterConsumptionByMonthController = async (
   const water = await getUserWaterConsumptionByMonth({
     userId,
     month,
-
     sortBy,
     sortOrder,
   });

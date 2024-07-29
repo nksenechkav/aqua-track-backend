@@ -7,7 +7,7 @@ export const getUserWaterConsumptionByDay = async ({
   userId,
   date,
   sortOrder = SORT_ORDER.ASC,
-  sortBy = '_id',
+  sortBy = 'time',
 }) => {
   const startDate = new Date(date);
   const endDate = new Date(date);
@@ -38,7 +38,7 @@ export const getUserWaterConsumptionByMonth = async ({
   userId,
   month,
   sortOrder = SORT_ORDER.ASC,
-  sortBy = '_id',
+  sortBy = 'time',
 }) => {
   const startDate = new Date(`${month}-01T00:00:00Z`);
   const endDate = new Date(startDate);

@@ -22,7 +22,7 @@ parameters:
     name: sortBy
     schema:
       type: string
-      default: '_id'
+      default: 'time'
 
 responses:
   '200':

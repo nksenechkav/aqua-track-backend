@@ -42,6 +42,7 @@ requestBody:
             description: "User's photo"
             type: string
             format: binary
+            example: 'https://res.cloudinary.com/delucsi8d/image/upload/v1722184393/avatar_gwefos.png'
 responses:
   '200':
     description: 'Update user data'

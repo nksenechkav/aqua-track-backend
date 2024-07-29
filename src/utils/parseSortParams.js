@@ -21,7 +21,7 @@ const parseSortBy = (sortBy) => {
     return sortBy;
   }
 
-  return '_id';
+  return 'time';
 };
 
 export const parseSortParams = (query) => {
