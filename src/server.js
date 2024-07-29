@@ -31,21 +31,19 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   // app.use(cors());
-  app.use(
-    cors({
-      origin: function (origin, callback) {
-        // Перевірте, чи є `origin` у списку дозволених
-        if (allowedOrigins.includes(origin) || !origin) {
-          // Якщо так, дозволити запит
-          callback(null, true);
-        } else {
-          // Інакше заборонити запит
-          callback(new Error('Not allowed by CORS'));
-        }
-      },
-      credentials: true, // Дозволити передачу файлів cookie
-    }),
-  );
+  const corsOptions = {
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: 'GET,POST,PUT,DELETE,PATCH',
+    allowedHeaders: 'Content-Type,Authorization',
+    optionsSuccessStatus: 200,
+  };
+  app.use(cors(corsOptions));
 
   app.use(cookieParser());
   app.use('/uploads', express.static(UPLOAD_DIR));
