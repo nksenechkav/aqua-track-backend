@@ -14,16 +14,16 @@ import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', '3000'));
 
-//дозволені домени, з яких можна робити запити
-const allowedOrigins = [
-  //локалхост для тестування
-  'http://localhost:5173',
-  'http://localhost:3000',
+// //дозволені домени, з яких можна робити запити
+// const allowedOrigins = [
+//   //локалхост для тестування
+//   'http://localhost:5173',
+//   'http://localhost:3000',
 
- //деплой-продакшен
-  'https://aquatrack-taupe.vercel.app',
-  'https://aqua-track-backend.onrender.com',
-];
+//  //деплой-продакшен
+//   'https://aquatrack-taupe.vercel.app',
+//   'https://aqua-track-backend.onrender.com',
+// ];
 
 export const setupServer = () => {
   const app = express();
@@ -31,6 +31,17 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   // app.use(cors());
+  //дозволені домени, з яких можна робити запити
+  const allowedOrigins = [
+    //локалхост для тестування
+    'http://localhost:5173',
+    'http://localhost:3000',
+
+    //деплой-продакшен
+    'https://aquatrack-taupe.vercel.app',
+    'https://aqua-track-backend.onrender.com',
+  ];
+
   const corsOptions = {
     origin: function (origin, callback) {
       if (!origin || allowedOrigins.includes(origin)) {
