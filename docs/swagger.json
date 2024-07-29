@@ -11,9 +11,6 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
-    },
-    {
       "url": "https://aqua-track-backend.onrender.com"
     }
   ],
@@ -364,7 +361,8 @@
                   "photo": {
                     "description": "User's photo",
                     "type": "string",
-                    "format": "binary"
+                    "format": "binary",
+                    "example": "https://res.cloudinary.com/delucsi8d/image/upload/v1722184393/avatar_gwefos.png"
                   }
                 }
               }
@@ -636,7 +634,7 @@
             "name": "sortBy",
             "schema": {
               "type": "string",
-              "default": "_id"
+              "default": "time"
             }
           }
         ],
@@ -733,7 +731,7 @@
             "name": "sortBy",
             "schema": {
               "type": "string",
-              "default": "_id"
+              "default": "time"
             }
           }
         ],
@@ -931,7 +929,8 @@
           "photo": {
             "description": "User's photo",
             "type": "string",
-            "format": "binary"
+            "format": "binary",
+            "example": "https://res.cloudinary.com/delucsi8d/image/upload/v1722184393/avatar_gwefos.png"
           }
         }
       },
