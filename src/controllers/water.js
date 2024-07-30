@@ -35,6 +35,12 @@ export const getUserWaterConsumptionByDayController = async (
   });
 
   if (water.data.length === 0) {
+    res.status(200).json({
+      status: 200,
+      message: `Entries of water not found for the day ${date}`,
+      data: [],
+    });
+
     next(createHttpError(404, 'Entries of water not found'));
     return;
   }
@@ -71,6 +77,11 @@ export const getUserWaterConsumptionByMonthController = async (
   });
 
   if (water.data.length === 0) {
+    res.status(200).json({
+      status: 200,
+      message: `Entries of water not found for the month ${month}`,
+      data: [],
+    });
     next(createHttpError(404, 'Entries of water not found'));
     return;
   }
