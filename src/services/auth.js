@@ -5,7 +5,7 @@ import { randomBytes } from 'crypto';
 
 import { UsersCollection } from '../db/models/user.js';
 import {
-  FIFTEEN_MINUTES,
+  THIRTY_MINUTES,
   TEMPLATES_DIR,
   THIRTY_DAYS,
 } from '../constants/index.js';
@@ -35,7 +35,7 @@ const createSession = (userId) => {
     userId,
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    accessTokenValidUntil: new Date(Date.now() + THIRTY_MINUTES),
     refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
   };
 };
