@@ -1,9 +1,9 @@
 #/swagger/paths/water/post.yaml
 tags:
   - Water
-summary: Create waterInfo
+summary: Create an entry of Water
 operationId: createwaterInfo
-description: 'Create a water with payload'
+description: 'Create an entry of Water with payload'
 security:
   - bearerAuth: []
 requestBody:
@@ -27,7 +27,7 @@ requestBody:
 
 responses:
   '201':
-    description: Creates a water info
+    description: Successfully created an entry of Water!
     content:
       application/json:
         schema:
@@ -42,7 +42,7 @@ responses:
               example: 201
             message:
               type: string
-              example: Successfully created a water info!
+              example: Successfully created an entry of Water!
             data:
               type: object
               $ref: ../../components/schemas/water.yaml

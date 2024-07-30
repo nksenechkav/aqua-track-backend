@@ -1,9 +1,9 @@
 #/swagger/paths/water/get.yaml
 tags:
   - Water
-summary: Get water info records by day
+summary: Get entries of water for the day
 operationId: getInfoWaterDay
-description: 'Get water info records by day'
+description: 'Get entries of water for the day'
 security:
   - bearerAuth: []
 parameters:
@@ -26,7 +26,7 @@ parameters:
 
 responses:
   '200':
-    description: Successfully get info water records!
+    description: Successfully fetched water consumption for the day!
     content:
       application/json:
         schema:
@@ -41,7 +41,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully get info water records!
+              example: Successfully fetched water consumption for the day!
             data:
               type: object
               required:

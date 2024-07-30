@@ -1,9 +1,9 @@
 #/swagger/paths/water/get.yaml
 tags:
   - Water
-summary: Get water info records by month
+summary: Get entries of water for month
 operationId: getInfoWaterMonth
-description: 'Get water info records by month'
+description: 'Get entries of water for month'
 security:
   - bearerAuth: []
 parameters:
@@ -26,7 +26,7 @@ parameters:
 
 responses:
   '200':
-    description: Successfully get info water records!
+    description: Successfully fetched water consumption for the month!
     content:
       application/json:
         schema:
@@ -42,7 +42,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully get info water records!
+              example: Successfully fetched water consumption for the month!
             totalWaterAmount:
               type: number
               example: 300

@@ -1,9 +1,9 @@
 # swagger/paths/water/{id}/patch.yaml
 tags:
   - Water
-summary: Update waterInfo by id
+summary: Update an entry of Water by id
 operationId: updateWaterInfo
-description: 'Update info about water  by id'
+description: 'Update an entry of Water  by id'
 security:
   - bearerAuth: []
 parameters:
@@ -31,7 +31,7 @@ requestBody:
 
 responses:
   '200':
-    description: 'Update waterInfo by id'
+    description: 'Update an entry of Water by id'
     content:
       application/json:
         schema:
@@ -46,7 +46,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully found waterInfo with id 65ca67e7ae7f10c88b598384!
+              example: Successfully found an entry of Water with id 65ca67e7ae7f10c88b598384!
             data:
               type: object
               $ref: '../../../components/schemas/water.yaml'

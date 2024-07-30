@@ -475,9 +475,9 @@
         "tags": [
           "Water"
         ],
-        "summary": "Update waterInfo by id",
+        "summary": "Update an entry of Water by id",
         "operationId": "updateWaterInfo",
-        "description": "Update info about water  by id",
+        "description": "Update an entry of Water  by id",
         "security": [
           {
             "bearerAuth": []
@@ -517,7 +517,7 @@
         },
         "responses": {
           "200": {
-            "description": "Update waterInfo by id",
+            "description": "Update an entry of Water by id",
             "content": {
               "application/json": {
                 "schema": {
@@ -534,7 +534,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found waterInfo with id 65ca67e7ae7f10c88b598384!"
+                      "example": "Successfully found an entry of Water with id 65ca67e7ae7f10c88b598384!"
                     },
                     "data": {
                       "type": "object",
@@ -560,9 +560,9 @@
         "tags": [
           "Water"
         ],
-        "summary": "Delete waterInfo by id",
+        "summary": "Delete an entry of Water by id",
         "operationId": "deleteWaterInfo",
-        "description": "Delete waterInfo by id",
+        "description": "Delete an entry of Water by id",
         "security": [
           {
             "bearerAuth": []
@@ -581,7 +581,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Delete waterInfo by id"
+            "description": "Delete an entry of Water by id"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -600,9 +600,9 @@
         "tags": [
           "Water"
         ],
-        "summary": "Get water info records by day",
+        "summary": "Get entries of water for the day",
         "operationId": "getInfoWaterDay",
-        "description": "Get water info records by day",
+        "description": "Get entries of water for the day",
         "security": [
           {
             "bearerAuth": []
@@ -640,7 +640,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully get info water records!",
+            "description": "Successfully fetched water consumption for the day!",
             "content": {
               "application/json": {
                 "schema": {
@@ -657,7 +657,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully get info water records!"
+                      "example": "Successfully fetched water consumption for the day!"
                     },
                     "data": {
                       "type": "object",
@@ -697,9 +697,9 @@
         "tags": [
           "Water"
         ],
-        "summary": "Get water info records by month",
+        "summary": "Get entries of water for month",
         "operationId": "getInfoWaterMonth",
-        "description": "Get water info records by month",
+        "description": "Get entries of water for month",
         "security": [
           {
             "bearerAuth": []
@@ -737,7 +737,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully get info water records!",
+            "description": "Successfully fetched water consumption for the month!",
             "content": {
               "application/json": {
                 "schema": {
@@ -755,7 +755,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully get info water records!"
+                      "example": "Successfully fetched water consumption for the month!"
                     },
                     "totalWaterAmount": {
                       "type": "number",
@@ -799,9 +799,9 @@
         "tags": [
           "Water"
         ],
-        "summary": "Create waterInfo",
+        "summary": "Create an entry of Water",
         "operationId": "createwaterInfo",
-        "description": "Create a water with payload",
+        "description": "Create an entry of Water with payload",
         "security": [
           {
             "bearerAuth": []
@@ -834,7 +834,7 @@
         },
         "responses": {
           "201": {
-            "description": "Creates a water info",
+            "description": "Successfully created an entry of Water!",
             "content": {
               "application/json": {
                 "schema": {
@@ -851,7 +851,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully created a water info!"
+                      "example": "Successfully created an entry of Water!"
                     },
                     "data": {
                       "type": "object",
