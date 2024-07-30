@@ -59,7 +59,7 @@ export const getUserWaterConsumptionByMonth = async ({
 
   return {
     data: water,
-    waterCount
+    waterCount,
   };
 };
 

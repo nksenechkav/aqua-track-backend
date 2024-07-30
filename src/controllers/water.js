@@ -11,6 +11,7 @@ import { parseSortParams } from '../utils/parseSortParams.js';
 import createHttpError from 'http-errors';
 import { calculateTotalWaterAmount } from '../utils/сalculateTotalWaterAmount.js';
 import { getMonthWaterByDays } from '../utils/getMonthWaterByDays.js';
+import { UsersCollection } from '../db/models/user.js';
 
 export const getUserWaterConsumptionByDayController = async (
   req,
@@ -62,7 +63,6 @@ export const getUserWaterConsumptionByMonthController = async (
   const userId = req.user._id;
 
   const { sortBy, sortOrder } = parseSortParams(req.query);
-
   const { month } = req.query;
 
   if (!month) {
@@ -86,18 +86,23 @@ export const getUserWaterConsumptionByMonthController = async (
     return;
   }
 
+  // Отримуємо інформацію про користувача, щоб отримати waterAmount
+  const user = await UsersCollection.findById(userId).exec();
+  const userWaterAmount = user.waterAmount || 1.8; // Якщо немає значення, використовуємо 1.8 за замовчуванням
+
   const totalWaterAmount = calculateTotalWaterAmount(water.data);
-  const monthWaterByDays = getMonthWaterByDays(water.data);
+  const monthWaterByDays = getMonthWaterByDays(water.data, userWaterAmount);
 
   res.status(200).json({
     status: 200,
     message: `Successfully fetched water consumption for the month ${month}`,
     totalWaterAmount,
     water: {
-      data: monthWaterByDays
+      data: monthWaterByDays,
     },
   });
 };
+
 
 export const createWaterController = async (req, res) => {
   const userId = req.user._id;
