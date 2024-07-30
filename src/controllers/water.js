@@ -37,8 +37,8 @@ export const getUserWaterConsumptionByDayController = async (
   if (water.data.length === 0) {
     res.status(200).json({
       status: 200,
-      message: `Entries of water not found for the day ${date}`,
-      data: [],
+      message: `Entries of water do not exist for the day ${date}`,
+      water,
     });
 
     next(createHttpError(404, 'Entries of water not found'));
@@ -79,8 +79,8 @@ export const getUserWaterConsumptionByMonthController = async (
   if (water.data.length === 0) {
     res.status(200).json({
       status: 200,
-      message: `Entries of water not found for the month ${month}`,
-      data: [],
+      message: `Entries of water do not exist for the month ${month}`,
+      water,
     });
     next(createHttpError(404, 'Entries of water not found'));
     return;
