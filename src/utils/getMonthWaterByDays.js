@@ -70,7 +70,7 @@ export const getMonthWaterByDays = (waterEntries, userWaterAmount) => {
   const year = firstEntryDate.getUTCFullYear();
   const month = firstEntryDate.getUTCMonth();
 
-  const daysInMonth = new Date(year, month + 1, 0).getUTCDate();
+  const daysInMonth = new Date(year, month+1, 1).getUTCDate();
   console.log(`Days in month: ${daysInMonth}`);
 
   for (let day = 1; day <= daysInMonth; day++) {
