@@ -12,17 +12,6 @@ parameters:
     schema:
       type: string
       example: '2024-07'
-  - in: query
-    name: sortOrder
-    schema:
-      type: string
-      enum: ['asc', 'desc']
-      default: 'asc'
-  - in: query
-    name: sortBy
-    schema:
-      type: string
-      default: 'time'
 
 responses:
   '200':
@@ -59,7 +48,7 @@ responses:
                     $ref: '../../../components/schemas/water.yaml'
                 timePeriod:
                   type: string
-                  example: 'day'
+                  example: 'month'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':

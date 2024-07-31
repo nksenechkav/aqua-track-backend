@@ -62,7 +62,6 @@ export const getUserWaterConsumptionByMonthController = async (
 ) => {
   const userId = req.user._id;
 
-  const { sortBy, sortOrder } = parseSortParams(req.query);
   const { month } = req.query;
 
   if (!month) {
@@ -71,16 +70,14 @@ export const getUserWaterConsumptionByMonthController = async (
 
   const water = await getUserWaterConsumptionByMonth({
     userId,
-    month,
-    sortBy,
-    sortOrder,
+    month
   });
 
   if (water.data.length === 0) {
     res.status(200).json({
       status: 200,
       message: `Entries of water do not exist for the month ${month}`,
-      water,
+      water
     });
     next(createHttpError(404, 'Entries of water not found'));
     return;
@@ -98,7 +95,7 @@ export const getUserWaterConsumptionByMonthController = async (
     message: `Successfully fetched water consumption for the month ${month}`,
     totalWaterAmount,
     water: {
-      data: monthWaterByDays,
+      data: monthWaterByDays
     },
   });
 };

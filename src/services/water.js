@@ -37,8 +37,6 @@ export const getUserWaterConsumptionByDay = async ({
 export const getUserWaterConsumptionByMonth = async ({
   userId,
   month,
-  sortOrder = SORT_ORDER.ASC,
-  sortBy = 'time',
 }) => {
   const startDate = new Date(`${month}-01T00:00:00Z`);
   const endDate = new Date(startDate);
@@ -54,12 +52,11 @@ export const getUserWaterConsumptionByMonth = async ({
 
   const [waterCount, water] = await Promise.all([
     WaterCollection.find().merge(waterQuery).countDocuments(),
-    waterQuery.sort({ [sortBy]: sortOrder }).exec(),
   ]);
 
   return {
     data: water,
-    waterCount,
+    waterCount
   };
 };
 
