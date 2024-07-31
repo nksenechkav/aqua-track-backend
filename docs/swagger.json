@@ -713,26 +713,6 @@
               "type": "string",
               "example": "2024-07"
             }
-          },
-          {
-            "in": "query",
-            "name": "sortOrder",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
-              "default": "asc"
-            }
-          },
-          {
-            "in": "query",
-            "name": "sortBy",
-            "schema": {
-              "type": "string",
-              "default": "time"
-            }
           }
         ],
         "responses": {
@@ -776,7 +756,7 @@
                         },
                         "timePeriod": {
                           "type": "string",
-                          "example": "day"
+                          "example": "month"
                         }
                       }
                     }
