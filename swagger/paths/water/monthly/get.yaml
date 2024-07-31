@@ -44,6 +44,12 @@ responses:
                   type: array
                   items:
                     $ref: '../../../components/schemas/water.yaml'
+                    dailyProgress:
+                        type: string
+                        example: '0%'
+                    waterAmount:
+                        type: string
+                        example: '1.75L'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':
