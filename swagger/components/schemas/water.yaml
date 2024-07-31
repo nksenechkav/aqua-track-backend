@@ -5,7 +5,6 @@ required:
   - _id
   - time
   - amount
-
   - userId
 
 properties:
@@ -25,3 +24,11 @@ properties:
     description: "User's parent id"
     type: string
     example: '65e4decdd286b30065d54af9'
+  daylyProgress:
+    description: 'Daily progress percentage'
+    type: string
+    example: '0%'
+  waterAmount:
+    description: 'Amount of water consumed'
+    type: string
+    example: '1.75L'

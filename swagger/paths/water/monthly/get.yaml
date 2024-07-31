@@ -34,21 +34,36 @@ responses:
               example: Successfully fetched water consumption for the month!
             totalWaterAmount:
               type: number
-              example: 300
+              example: 1000
             water:
               type: object
               required:
                 - data
                 - timePeriod
-
               properties:
                 data:
                   type: array
                   items:
-                    $ref: '../../../components/schemas/water.yaml'
-                timePeriod:
-                  type: string
-                  example: 'month'
+                    type: object
+                    properties:
+                      time:
+                        type: string
+                        example: '2024-07-01'
+                      amount:
+                        type: integer
+                        example: 0
+                      userId:
+                        type: string
+                        example: '66a8b8292860c6745f910c96'
+                      _id:
+                        type: string
+                        example: '66aa24cf0c0945c2457157e6'
+                      daylyProgress:
+                        type: string
+                        example: '0%'
+                      waterAmount:
+                        type: string
+                        example: '1.75L'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':
