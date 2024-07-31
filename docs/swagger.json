@@ -477,7 +477,7 @@
         ],
         "summary": "Update an entry of Water by id",
         "operationId": "updateWaterInfo",
-        "description": "Update an entry of Water by id",
+        "description": "Update an entry of Water  by id",
         "security": [
           {
             "bearerAuth": []
@@ -501,7 +501,7 @@
                 "type": "object",
                 "properties": {
                   "time": {
-                    "description": "time record",
+                    "description": "time of entry",
                     "type": "string",
                     "example": "2024-07-24T10:12:22Z"
                   },
@@ -538,24 +538,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "properties": {
-                        "time": {
-                          "type": "string",
-                          "example": "2024-07-31T11:30:00Z"
-                        },
-                        "amount": {
-                          "type": "integer",
-                          "example": 0
-                        },
-                        "userId": {
-                          "type": "string",
-                          "example": "66a8b8292860c6745f910c96"
-                        },
-                        "_id": {
-                          "type": "string",
-                          "example": "66aa24cf0c0945c2457157e6"
-                        }
-                      }
+                      "$ref": "#/components/schemas/water"
                     }
                   }
                 }
@@ -677,25 +660,15 @@
                       "example": "Successfully fetched water consumption for the day!"
                     },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "_id": {
-                            "type": "string",
-                            "example": "66aa24cf0c0945c2457157e6"
-                          },
-                          "time": {
-                            "type": "string",
-                            "example": "2024-07-31T11:30:00Z"
-                          },
-                          "amount": {
-                            "type": "integer",
-                            "example": 0
-                          },
-                          "userId": {
-                            "type": "string",
-                            "example": "66a8b8292860c6745f910c96"
+                      "type": "object",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/water"
                           }
                         }
                       }
@@ -761,7 +734,7 @@
                     },
                     "totalWaterAmount": {
                       "type": "number",
-                      "example": 1000
+                      "example": 300
                     },
                     "water": {
                       "type": "object",
@@ -772,33 +745,7 @@
                         "data": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "time": {
-                                "type": "string",
-                                "example": "2024-07-01"
-                              },
-                              "amount": {
-                                "type": "integer",
-                                "example": 0
-                              },
-                              "userId": {
-                                "type": "string",
-                                "example": "66a8b8292860c6745f910c96"
-                              },
-                              "_id": {
-                                "type": "string",
-                                "example": "66aa24cf0c0945c2457157e6"
-                              },
-                              "daylyProgress": {
-                                "type": "string",
-                                "example": "0%"
-                              },
-                              "waterAmount": {
-                                "type": "string",
-                                "example": "1.75L"
-                              }
-                            }
+                            "$ref": "#/components/schemas/water"
                           }
                         }
                       }
@@ -841,7 +788,7 @@
                 ],
                 "properties": {
                   "time": {
-                    "description": "time record",
+                    "description": "time of entry",
                     "type": "string",
                     "example": "2024-07-24T10:12:22Z"
                   },
@@ -878,24 +825,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "properties": {
-                        "time": {
-                          "type": "string",
-                          "example": "2024-07-31T11:30:00Z"
-                        },
-                        "amount": {
-                          "type": "integer",
-                          "example": 0
-                        },
-                        "userId": {
-                          "type": "string",
-                          "example": "66a8b8292860c6745f910c96"
-                        },
-                        "_id": {
-                          "type": "string",
-                          "example": "66aa24cf0c0945c2457157e6"
-                        }
-                      }
+                      "$ref": "#/components/schemas/water"
                     }
                   }
                 }
@@ -984,6 +914,47 @@
             "description": "access token",
             "type": "string",
             "example": "J/rbRcndttkAH/i8FwzkgbhaL2hywdsU4rRTLshX"
+          }
+        }
+      },
+      "water": {
+        "type": "object",
+        "required": [
+          "_id",
+          "time",
+          "amount",
+          "userId"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Info water's id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "time": {
+            "description": "time of entry",
+            "type": "string",
+            "example": "2024-07-24T10:12"
+          },
+          "amount": {
+            "description": "The value of the water used",
+            "type": "integer",
+            "example": 50
+          },
+          "userId": {
+            "description": "User's parent id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "dailyProgress": {
+            "description": "Daily progress percentage",
+            "type": "string",
+            "example": "0%"
+          },
+          "waterAmount": {
+            "description": "Amount of dayly water consumed",
+            "type": "string",
+            "example": "1.75L"
           }
         }
       }

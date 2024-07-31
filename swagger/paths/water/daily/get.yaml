@@ -23,6 +23,7 @@ parameters:
     schema:
       type: string
       default: 'time'
+
 responses:
   '200':
     description: Successfully fetched water consumption for the day!
@@ -42,24 +43,16 @@ responses:
               type: string
               example: Successfully fetched water consumption for the day!
             data:
-              type: array
-              items:
-                type: object
-                properties:
-                  _id:
-                    type: string
-                    example: '66aa24cf0c0945c2457157e6'
-                  time:
-                    type: string
-                    example: '2024-07-31T11:30:00Z'
-                  amount:
-                    type: integer
-                    example: 0
-                  userId:
-                    type: string
-                    example: '66a8b8292860c6745f910c96'
+              type: object
+              required:
+                - data
+
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '../../../components/schemas/water.yaml'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':
     $ref: '../../../components/responses/500.yaml'
-
