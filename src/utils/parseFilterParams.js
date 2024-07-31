@@ -1,14 +1,14 @@
-// src/utils/parseFilterParams.js
+// // src/utils/parseFilterParams.js
 
-const parseTime = (time) => {
-  if (!(typeof time === 'string')) return time;
-};
+// const parseTime = (time) => {
+//   if (!(typeof time === 'string')) return time;
+// };
 
-export const parseFilterParams = (query) => {
-  const { time } = query; //TODO де це буде використано на сайті
+// export const parseFilterParams = (query) => {
+//   const { time } = query; //TODO де це буде використано на сайті
 
-  const parsedTime = parseTime(time);
-  return {
-    time: parsedTime,
-  };
-};
+//   const parsedTime = parseTime(time);
+//   return {
+//     time: parsedTime,
+//   };
+// };
