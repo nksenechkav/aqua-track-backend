@@ -42,16 +42,18 @@ responses:
             message:
               type: string
               example: Successfully fetched water consumption for the day!
-            data:
+            water:
               type: object
               required:
                 - data
-
               properties:
                 data:
                   type: array
                   items:
                     $ref: '../../../components/schemas/water.yaml'
+                waterCount:
+                  type: number
+                  example: 5
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':
