@@ -1,9 +1,10 @@
 # swagger/paths/water/{id}/patch.yaml
+
 tags:
   - Water
 summary: Update an entry of Water by id
 operationId: updateWaterInfo
-description: 'Update an entry of Water  by id'
+description: 'Update an entry of Water by id'
 security:
   - bearerAuth: []
 parameters:
@@ -18,7 +19,6 @@ requestBody:
     application/json:
       schema:
         type: object
-
         properties:
           time:
             description: 'time record'
@@ -28,7 +28,6 @@ requestBody:
             description: 'The value of the water used'
             type: integer
             example: 50
-
 responses:
   '200':
     description: 'Update an entry of Water by id'
@@ -48,21 +47,20 @@ responses:
               type: string
               example: Successfully found an entry of Water with id 65ca67e7ae7f10c88b598384!
             data:
-                type: object
-                properties:
-                  time:
-                    type: string
-                    example: '2024-07-01'
-                  amount:
-                    type: integer
-                    example: 0
-                  userId:
-                    type: string
-                    example: '66a8b8292860c6745f910c96'
-                  _id:
-                    type: string
-                    example: '66aa24cf0c0945c2457157e6'
-            $ref: '../../../components/schemas/water.yaml'
+              type: object
+              properties:
+                time:
+                  type: string
+                  example: '2024-07-31T11:30:00Z'
+                amount:
+                  type: integer
+                  example: 0
+                userId:
+                  type: string
+                  example: '66a8b8292860c6745f910c96'
+                _id:
+                  type: string
+                  example: '66aa24cf0c0945c2457157e6'
   '404':
     $ref: '../../../components/responses/water/404-2.yaml'
   '401':

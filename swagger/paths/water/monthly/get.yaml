@@ -63,7 +63,6 @@ responses:
                       waterAmount:
                         type: string
                         example: '1.75L'
-                      $ref: '../../../components/schemas/water.yaml'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':
