@@ -659,6 +659,10 @@
                       "type": "string",
                       "example": "Successfully fetched water consumption for the day!"
                     },
+                    "totalWaterAmount": {
+                      "type": "number",
+                      "example": 300
+                    },
                     "water": {
                       "type": "object",
                       "required": [
@@ -749,14 +753,40 @@
                         "data": {
                           "type": "array",
                           "items": {
-                            "$ref": "#/components/schemas/water",
-                            "dailyProgress": {
-                              "type": "string",
-                              "example": "0%"
-                            },
-                            "waterAmount": {
-                              "type": "string",
-                              "example": "1.75L"
+                            "type": "object",
+                            "required": [
+                              "_id",
+                              "time",
+                              "amount",
+                              "userId",
+                              "dailyProgress",
+                              "waterAmount"
+                            ],
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "example": "65e4decdd286b30065d54af9"
+                              },
+                              "time": {
+                                "type": "string",
+                                "example": "2024-07-24T10:12"
+                              },
+                              "amount": {
+                                "type": "integer",
+                                "example": 50
+                              },
+                              "userId": {
+                                "type": "string",
+                                "example": "65e4decdd286b30065d54af9"
+                              },
+                              "dailyProgress": {
+                                "type": "string",
+                                "example": "0%"
+                              },
+                              "waterAmount": {
+                                "type": "string",
+                                "example": "1.75L"
+                              }
                             }
                           }
                         }
