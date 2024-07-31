@@ -64,7 +64,8 @@ export const getMonthWaterByDays = (waterEntries, userWaterAmount) => {
   const year = firstEntryDate.getUTCFullYear();
   const month = firstEntryDate.getUTCMonth();
 
-  const daysInMonth = new Date(year, month+1, 1).getUTCDate();
+  // Определяем количество дней в месяце
+  const daysInMonth = new Date(year, month + 1, 0).getUTCDate();
 
   for (let day = 1; day <= daysInMonth; day++) {
     const formattedDate = `${year}-${String(month + 1).padStart(
