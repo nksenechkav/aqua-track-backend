@@ -6,7 +6,6 @@ export const getMonthWaterByDays = (waterEntries, userWaterAmount) => {
   }
 
   const waterPerDays = {};
-  console.log('Input waterEntries:', waterEntries);
 
   // Функція для корекції формату дати
   const correctDateFormat = (dateStr) => {
@@ -26,7 +25,6 @@ export const getMonthWaterByDays = (waterEntries, userWaterAmount) => {
       dateStr = correctDateFormat(dateStr);
 
       const date = new Date(dateStr);
-      console.log(`Processing entry date: ${date}`);
 
       if (isNaN(date.getTime())) {
         console.error(`Invalid time value for entry: ${JSON.stringify(entry)}`);
@@ -36,7 +34,6 @@ export const getMonthWaterByDays = (waterEntries, userWaterAmount) => {
       const formattedDate = `${date.getUTCFullYear()}-${String(
         date.getUTCMonth() + 1,
       ).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
-      console.log(`Formatted date: ${formattedDate}`);
 
       if (!waterPerDays[formattedDate]) {
         waterPerDays[formattedDate] = {
@@ -63,15 +60,11 @@ export const getMonthWaterByDays = (waterEntries, userWaterAmount) => {
   }
 
   const firstEntryDate = new Date(waterEntries[0].time);
-  console.log(
-    `Year: ${firstEntryDate.getUTCFullYear()} Month: ${firstEntryDate.getUTCMonth()+1}`,
-  );
 
   const year = firstEntryDate.getUTCFullYear();
   const month = firstEntryDate.getUTCMonth();
 
   const daysInMonth = new Date(year, month+1, 1).getUTCDate();
-  console.log(`Days in month: ${daysInMonth}`);
 
   for (let day = 1; day <= daysInMonth; day++) {
     const formattedDate = `${year}-${String(month + 1).padStart(
@@ -93,7 +86,6 @@ export const getMonthWaterByDays = (waterEntries, userWaterAmount) => {
   const resultArray = Object.values(waterPerDays).sort(
     (a, b) => new Date(a.time) - new Date(b.time),
   );
-  console.log('Sorted result array:', resultArray);
 
   return resultArray;
 };
