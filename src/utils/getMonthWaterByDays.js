@@ -64,16 +64,16 @@ export const getMonthWaterByDays = (waterEntries, userWaterAmount) => {
 
   const firstEntryDate = new Date(waterEntries[0].time);
   console.log(
-    `Year: ${firstEntryDate.getUTCFullYear()} Month: ${firstEntryDate.getUTCMonth()}`,
+    `Year: ${firstEntryDate.getUTCFullYear()} Month: ${firstEntryDate.getUTCMonth()+1}`,
   );
 
   const year = firstEntryDate.getUTCFullYear();
   const month = firstEntryDate.getUTCMonth();
 
   const daysInMonth = new Date(year, month + 1, 0).getUTCDate();
-  console.log(`Days in month: ${daysInMonth}`);
+  console.log(`Days in month: ${daysInMonth+1}`);
 
-  for (let day = 1; day <= daysInMonth; day++) {
+  for (let day = 1; day <= daysInMonth+1; day++) {
     const formattedDate = `${year}-${String(month + 1).padStart(
       2,
       '0',
