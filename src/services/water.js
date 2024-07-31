@@ -52,6 +52,7 @@ export const getUserWaterConsumptionByMonth = async ({
 
   const [waterCount, water] = await Promise.all([
     WaterCollection.find().merge(waterQuery).countDocuments(),
+    waterQuery.exec(),
   ]);
 
   return {

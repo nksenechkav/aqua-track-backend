@@ -77,7 +77,7 @@ export const getUserWaterConsumptionByMonthController = async (
     res.status(200).json({
       status: 200,
       message: `Entries of water do not exist for the month ${month}`,
-      water
+      water,
     });
     next(createHttpError(404, 'Entries of water not found'));
     return;
@@ -95,7 +95,7 @@ export const getUserWaterConsumptionByMonthController = async (
     message: `Successfully fetched water consumption for the month ${month}`,
     totalWaterAmount,
     water: {
-      data: monthWaterByDays
+      data: monthWaterByDays,
     },
   });
 };
