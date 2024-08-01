@@ -2,28 +2,14 @@
 
 tags:
   - Auth
-summary: Get Google Oauth url of user
+summary: Get Google Oauth url for authorization user
 operationId: getOauthUrl
 description: 'Get Google Oauth url of user for Aquatrack'
 security: []
 
-requestBody:
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - email
-
-        properties:
-          email:
-            description: "user's email"
-            type: string
-            example: 'example@gmail.com'
-
 responses:
   '200':
-    description: 'Get Google Oauth url of user'
+    description: 'Get Google Oauth url for authorization user'
     content:
       application/json:
         schema:
