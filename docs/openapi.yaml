@@ -29,6 +29,13 @@ paths:
   /auth/refresh-access-token:
     post:
       $ref: ../swagger/paths/auth/refresh-access-token/post.yaml
+  /auth/get-oauth-url:
+    get:
+      $ref: ../swagger/paths/auth/googleOAuth/get.yaml
+  /auth/confirm-oauth:
+    post:
+      $ref: ../swagger/paths/auth/googleOAuth/post.yaml
+
   /users/currentUser:
     get:
       $ref: ../swagger/paths/users/currentUser/get.yaml
