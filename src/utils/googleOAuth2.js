@@ -17,14 +17,17 @@ const googleOAuthClient = new OAuth2Client({
   redirectUri: oauthConfig.web.redirect_uris[0],
 });
 
-export const generateAuthUrl = () =>
-  googleOAuthClient.generateAuthUrl({
+export const generateAuthUrl = () => {
+  const url = googleOAuthClient.generateAuthUrl({
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile',
     ],
     redirect_uri: googleOAuthClient.redirectUri,
   });
+
+  return url;
+};
 
   export const validateCode = async (code) => {
     const response = await googleOAuthClient.getToken(code);
