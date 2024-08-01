@@ -23,6 +23,7 @@ export const generateAuthUrl = () =>
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile',
     ],
+    redirect_uri: googleOAuthClient.redirectUri,
   });
 
   export const validateCode = async (code) => {
@@ -31,6 +32,7 @@ export const generateAuthUrl = () =>
 
     const ticket = await googleOAuthClient.verifyIdToken({
       idToken: response.tokens.id_token,
+      audience: env('GOOGLE_AUTH_CLIENT_ID'),
     });
     return ticket;
   };
