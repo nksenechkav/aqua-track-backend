@@ -35,6 +35,12 @@ paths:
   /auth/confirm-oauth:
     post:
       $ref: ../swagger/paths/auth/googleOAuth/post.yaml
+  /auth/send-reset-email:
+    post:
+      $ref: ../swagger/paths/auth/sendResetPassEmail/post.yaml
+  /auth/reset-pwd:
+    post:
+      $ref: ../swagger/paths/auth/ResetPassword/post.yaml
 
   /users/currentUser:
     get:
