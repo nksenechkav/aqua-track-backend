@@ -25,7 +25,7 @@ export const generateAuthUrl = () => {
     ],
     redirect_uri: googleOAuthClient.redirectUri,
   });
-  console.log('Generated OAuth URL:', url);
+
   return url;
 };
 
@@ -37,7 +37,7 @@ export const generateAuthUrl = () => {
       idToken: response.tokens.id_token,
       audience: env('GOOGLE_AUTH_CLIENT_ID'),
     });
-    console.log('Validated ID Token:', ticket);
+  
     return ticket;
   };
 
